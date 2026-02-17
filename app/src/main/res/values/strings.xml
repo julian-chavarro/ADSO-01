@@ -13,4 +13,6 @@
     <string name="app_CreateUser">Create User</string>
     <string name="app_CreatePassword">Create Password</string>
     <string name="app_btnCreate">Create Account</string>
+    <string name="app_btnChatBubble">💬</string>
+
 </resources>

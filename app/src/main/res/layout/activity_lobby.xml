@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lobbyRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:padding="24dp">
 
+    <!-- TEXTO DE BIENVENIDA -->
     <TextView
         android:id="@+id/txtHi"
         android:layout_width="wrap_content"
@@ -14,27 +13,44 @@
         android:text="@string/app_textHi"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:layout_marginBottom="30dp" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"/>
 
+    <!-- BOTONES DEL LOBBY -->
     <Button
         android:id="@+id/btnObjets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_btnObjets"
-        android:layout_marginBottom="10dp"/>
-
+        android:layout_below="@id/txtHi"
+        android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/btnFood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_btnFood"
-        android:layout_marginBottom="10dp"/>
+        android:layout_below="@id/btnObjets"
+        android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/btnStartRoutine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_btnStarRoutine"/>
+        android:text="@string/app_btnStarRoutine"
+        android:layout_below="@id/btnFood"
+        android:layout_marginBottom="16dp"/>
 
-</LinearLayout>
+    <!-- BURBUJA CHAT (la nube) -->
+    <Button
+        android:id="@+id/btnChatBubble"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/bubble_background"
+        android:text="@string/app_btnChatBubble"
+        android:textSize="28sp"
+        android:elevation="8dp"/>
+</RelativeLayout>
