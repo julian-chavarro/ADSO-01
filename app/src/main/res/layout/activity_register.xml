@@ -1,31 +1,27 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center">
+    android:padding="20dp">
 
     <EditText
-        android:id="@+id/txtCreateUser"
+        android:id="@+id/edtEmailRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/app_CreateUser"
-        android:layout_marginBottom="16dp"/>
+        android:inputType="textEmailAddress"/>
 
     <EditText
-        android:id="@+id/txtCreatePassword"
+        android:id="@+id/edtPasswordRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/app_CreatePassword"
-        android:inputType="textPassword"
-        android:layout_marginBottom="20dp"/>
+        android:inputType="textPassword"/>
 
     <Button
-        android:id="@+id/btnCreate"
+        android:id="@+id/btnCreateAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_btnCreate"/>
-
 </LinearLayout>

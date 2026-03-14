@@ -1,70 +1,96 @@
 package com.example.adso_01;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText txtUser, txtPassword;
+    private Button btnCreate;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Inicializar Firebase
+        FirebaseApp.initializeApp(this);
+
         setContentView(R.layout.activity_register);
 
-        txtUser = findViewById(R.id.txtCreateUser);
-        txtPassword = findViewById(R.id.txtCreatePassword);
-        Button btnCreate = findViewById(R.id.btnCreate);
+        // Conectar vistas
+        txtUser = findViewById(R.id.edtEmailRegister);
+        txtPassword = findViewById(R.id.edtPasswordRegister);
+        btnCreate = findViewById(R.id.btnCreateAccount);
 
-        btnCreate.setOnClickListener(v -> {
+        // Inicializar Firebase
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-            String username = txtUser.getText().toString().trim();
-            String password = txtPassword.getText().toString().trim();
+        // Evento del botón
+        btnCreate.setOnClickListener(v -> registerUser());
+    }
 
-            if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this,
-                        "Complete todos los campos",
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
+    private void registerUser() {
 
-            AppDatabase db = AppDatabase.getInstance(this);
+        String email = txtUser.getText().toString().trim();
+        String password = txtPassword.getText().toString().trim();
 
-            User existingUser = db.userDao().getUserByUsername(username);
+        // Validaciones
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            if (existingUser == null) {
+        if (password.length() < 6) {
+            Toast.makeText(this, "La contraseña debe tener mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                // 🔥 Creamos usuario usando constructor vacío
-                User newUser = new User();
-                newUser.username = username;
-                newUser.password = password;
+        // Crear usuario en Firebase Authentication
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
 
-                db.userDao().insert(newUser);
+                    if (task.isSuccessful()) {
 
-                // 🔥 Verificación inmediata
-                User testUser = db.userDao().getUserByUsername(username);
+                        String userId = mAuth.getCurrentUser().getUid();
 
-                if (testUser != null) {
-                    Toast.makeText(this,
-                            "Usuario guardado correctamente",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(this,
-                            "ERROR: no se guardó",
-                            Toast.LENGTH_LONG).show();
-                }
+                        Map<String, Object> user = new HashMap<>();
+                        user.put("email", email);
 
-                finish(); // vuelve al login
+                        // Guardar en Firestore
+                        db.collection("usuarios")
+                                .document(userId)
+                                .set(user);
 
-            } else {
-                Toast.makeText(this,
-                        "El usuario ya existe",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+                        Toast.makeText(this, "Registro exitoso", Toast.LENGTH_LONG).show();
+
+                        // Ir al login
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
+
+                        finish();
+
+                    } else {
+
+                        Toast.makeText(this,
+                                "Error: " + task.getException().getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                });
     }
 }
-

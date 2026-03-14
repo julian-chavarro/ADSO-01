@@ -1,16 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ADSO-01</string>
     <string name="app_welcome">BIENVENIDO</string>
     <string name="app_button">Start</string>
-    <string name="app_textUser">Put your name</string>
+    <string name="app_textUser">Email</string>
+    <string name="app_rememberMe">Recordarme</string>
     <string name="app_textPassword">Put your password</string>
     <string name="app_btnSign">Sign In</string>
     <string name="app_btnRegister">Register</string>
     <string name="app_btnObjets">Objets</string>
     <string name="app_btnStarRoutine">Star Routine</string>
-    <string name="app_btnFood">Ideals Foods</string>}
+    <string name="app_btnFood">Ideals Foods</string>
     <string name="app_textHi">How Your Make Winner</string>
-    <string name="app_CreateUser">Create User</string>
+    <string name="app_CreateUser">Enter email</string>
     <string name="app_CreatePassword">Create Password</string>
     <string name="app_btnCreate">Create Account</string>
+    <string name="app_textForgotPassword">¿Olvidaste tu contraseña?</string>
+    <string name="app_forgot_title">Recuperar contraseña</string>
+    <string name="app_forgot_hint_email">Ingresa tu correo</string>
+    <string name="app_forgot_btn_send">Enviar correo de recuperación</string>
 </resources>
