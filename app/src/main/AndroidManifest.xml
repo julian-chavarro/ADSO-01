@@ -18,6 +18,11 @@
         <activity android:name=".ForgotPasswordActivity"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".LobbyActivity" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".ObjetivoActivity" />
+        <activity android:name=".NutritionActivity" />
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

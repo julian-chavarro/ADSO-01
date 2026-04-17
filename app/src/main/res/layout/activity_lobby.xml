@@ -1,40 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:padding="24dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtHi"
+    <!-- CONTENIDO PRINCIPAL (NO CAMBIADO) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/txtHi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_textHi"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp" />
+
+        <Button
+            android:id="@+id/btnObjets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_btnObjets"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/btnFood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_btnFood"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/btnStartRoutine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_btnStarRoutine"/>
+
+        <!-- TARJETA DONDE SE MOSTRARÁ EL OBJETIVO -->
+        <LinearLayout
+            android:id="@+id/cardObjetivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#EFEFEF"
+            android:padding="16dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txtObjetivoUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_objetivoDelUsuario"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtCaloriasUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_caloriasUsuario"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- CHATFIT FLOTANTE -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_textHi"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="30dp" />
-
-    <Button
-        android:id="@+id/btnObjets"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_btnObjets"
-        android:layout_marginBottom="10dp"/>
+        android:orientation="vertical"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:gravity="center">
 
 
-    <Button
-        android:id="@+id/btnFood"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_btnFood"
-        android:layout_marginBottom="10dp"/>
+        <Button
+            android:id="@+id/btnChatBubble"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/bubble_background"
+            android:text="@string/app_btnChatBubble"
+            android:textColor="#4A148C"
+            android:textSize="28sp"
+            android:elevation="8dp"/>
 
-    <Button
-        android:id="@+id/btnStartRoutine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_btnStarRoutine"/>
+    </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>
