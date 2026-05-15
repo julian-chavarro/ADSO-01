@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- CONTENIDO PRINCIPAL (NO CAMBIADO) -->
+    <!-- CONTENIDO PRINCIPAL -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,10 +37,21 @@
             android:layout_marginBottom="10dp"/>
 
         <Button
+            android:id="@+id/btnProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_btnProgress"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
             android:id="@+id/btnStartRoutine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_btnStarRoutine"/>
+            android:text="@string/app_btnStarRoutine"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#FFEB3B"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
 
         <!-- TARJETA DONDE SE MOSTRARÁ EL OBJETIVO -->
         <LinearLayout

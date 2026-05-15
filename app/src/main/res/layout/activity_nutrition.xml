@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#F4F6FB"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:src="@android:drawable/ic_media_previous"
-            android:background="#5E35B1"
+            android:background="#6C63FF"
             android:tint="#FFFFFF"
             android:padding="8dp"
             android:layout_marginBottom="16dp"/>
@@ -26,8 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Si quieres llegar a tus objetivos de manera controlada, debes alinear tu alimentación, entrenamiento y descanso."
-            android:textColor="#000000"
-            android:textSize="16sp"
+            android:textColor="#4B5563"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:gravity="center"
             android:paddingBottom="16dp"/>
@@ -38,8 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Objetivo:"
-            android:textColor="#000000"
-            android:textSize="18sp"
+            android:textColor="#111827"
+            android:textSize="19sp"
             android:textStyle="bold"/>
 
         <!-- CALORÍAS -->
@@ -48,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Calorías:"
-            android:textColor="#000000"
+            android:textColor="#6C63FF"
             android:textSize="16sp"
             android:paddingBottom="16dp"/>
 
@@ -56,13 +57,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="8dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Desayuno"
-                android:textColor="#000000"
+                android:textColor="#111827"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_weight="1"/>
@@ -72,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Completar"
-                android:backgroundTint="#5E35B1"
+                android:backgroundTint="#6C63FF"
                 android:textColor="#FFFFFF"/>
         </LinearLayout>
 
@@ -80,8 +82,13 @@
             android:id="@+id/txtDesayuno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:paddingBottom="8dp"/>
+            android:textColor="#1F2937"
+            android:textSize="14sp"
+            android:lineSpacingExtra="5dp"
+            android:background="@drawable/options"
+            android:padding="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="12dp"/>
 
         <!-- ALMUERZO -->
         <LinearLayout
@@ -94,7 +101,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Almuerzo"
-                android:textColor="#000000"
+                android:textColor="#111827"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_weight="1"/>
@@ -104,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Completar"
-                android:backgroundTint="#5E35B1"
+                android:backgroundTint="#6C63FF"
                 android:textColor="#FFFFFF"/>
         </LinearLayout>
 
@@ -112,8 +119,13 @@
             android:id="@+id/txtAlmuerzo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:paddingBottom="8dp"/>
+            android:textColor="#1F2937"
+            android:textSize="14sp"
+            android:lineSpacingExtra="5dp"
+            android:background="@drawable/options"
+            android:padding="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="12dp"/>
 
         <!-- CENA -->
         <LinearLayout
@@ -126,7 +138,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Cena"
-                android:textColor="#000000"
+                android:textColor="#111827"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_weight="1"/>
@@ -136,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Completar"
-                android:backgroundTint="#5E35B1"
+                android:backgroundTint="#6C63FF"
                 android:textColor="#FFFFFF"/>
         </LinearLayout>
 
@@ -144,8 +156,13 @@
             android:id="@+id/txtCena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:paddingBottom="8dp"/>
+            android:textColor="#1F2937"
+            android:textSize="14sp"
+            android:lineSpacingExtra="5dp"
+            android:background="@drawable/options"
+            android:padding="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="12dp"/>
 
         <!-- PROGRESO -->
         <TextView
@@ -159,7 +176,7 @@
             android:gravity="center"
             android:padding="16dp"
             android:layout_marginTop="20dp"
-            android:background="#3B82F6"/>
+            android:background="#22C55E"/>
 
     </LinearLayout>
 </ScrollView>

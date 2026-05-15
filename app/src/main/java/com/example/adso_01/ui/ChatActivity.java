@@ -1,4 +1,4 @@
-package com.example.adso_01;
+package com.example.adso_01.ui;
 
 import android.os.Bundle;
 import android.webkit.WebSettings;
@@ -6,6 +6,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.adso_01.R;
 
 public class ChatActivity extends AppCompatActivity {
 

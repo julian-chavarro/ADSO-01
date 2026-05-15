@@ -1,4 +1,4 @@
-package com.example.adso_01;
+package com.example.adso_01.ui;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -6,14 +6,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.adso_01.R;
+import com.example.adso_01.viewmodel.AuthViewModel;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     private EditText edtEmailForgot;
     private Button btnSendRecovery;
-    private FirebaseAuth mAuth;
+
+    // 🔥 NUEVO: ViewModel
+    private AuthViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,23 +26,26 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         edtEmailForgot = findViewById(R.id.edtEmailForgot);
         btnSendRecovery = findViewById(R.id.btnSendRecovery);
-        mAuth = FirebaseAuth.getInstance();
+
+        // 🔥 NUEVO: inicializar ViewModel
+        viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         btnSendRecovery.setOnClickListener(v -> {
             String email = edtEmailForgot.getText().toString().trim();
+
             if(email.isEmpty()){
                 Toast.makeText(this, "Ingresa tu correo primero", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            mAuth.sendPasswordResetEmail(email)
-                    .addOnCompleteListener(task -> {
-                        if(task.isSuccessful()){
-                            Toast.makeText(this, "Correo de recuperación enviado", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
+            viewModel.resetPassword(email, (success, err) -> {
+                if (success) {
+                    Toast.makeText(this, "Correo de recuperación enviado", Toast.LENGTH_LONG).show();
+                } else {
+                    String msg = err != null ? err.getMessage() : "Error desconocido";
+                    Toast.makeText(this, "Error: " + msg, Toast.LENGTH_LONG).show();
+                }
+            });
         });
     }
 }

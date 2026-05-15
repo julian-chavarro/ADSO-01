@@ -1,4 +1,4 @@
-package com.example.adso_01;
+package com.example.adso_01.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,17 +8,20 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.lifecycle.ViewModelProvider;
+import com.example.adso_01.viewmodel.AuthViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.adso_01.R;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText txtUser, txtPassword;
     private CheckBox chkRemember;
-    private FirebaseAuth mAuth;
     private SharedPreferences prefs;
+
+    private AuthViewModel viewModel;
 
     private static final String PREFS_NAME = "LoginPrefs"; // Nombre del archivo SharedPreferences
 
@@ -35,8 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         Button btnRegister = findViewById(R.id.btnRegister);
         TextView txtOlvide = findViewById(R.id.tvOlvidePassword);
 
-        // Inicializar Firebase
-        mAuth = FirebaseAuth.getInstance();
+        viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+
 
         // Inicializar SharedPreferences
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -54,26 +57,23 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        if(task.isSuccessful()){
-                            Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show();
+            viewModel.login(email, password, (success, err) -> {
+                if (success) {
+                    Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show();
 
-                            // Guardar datos si usuario marcó "Recordarme"
-                            if(chkRemember.isChecked()){
-                                saveCredentials(email, password);
-                            } else {
-                                clearCredentials();
-                            }
+                    if (chkRemember.isChecked()) {
+                        saveCredentials(email, password);
+                    } else {
+                        clearCredentials();
+                    }
 
-                            // Ir a Lobby
-                            Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
         // REGISTRO

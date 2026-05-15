@@ -104,20 +104,96 @@
     }
 
     function botResponse(input){
-        const pregunta=input.toLowerCase();
-        if(pregunta.includes("bajar")||pregunta.includes("peso")||pregunta.includes("adelgazar")||pregunta.includes("grasa"))
-            return "Para bajar de peso combina entrenamiento de fuerza 3-4 días con cardio y reduce azúcares y fritos.";
-        if(pregunta.includes("masa")||pregunta.includes("musculo")||pregunta.includes("aumentar"))
-            return "Para aumentar masa muscular entrena fuerza 4-5 días y consume suficiente proteína.";
-        if(pregunta.includes("comida")||pregunta.includes("alimentacion")||pregunta.includes("dieta"))
-            return "Incluye proteína, arroz o papa, vegetales y buena hidratación.";
-        if(pregunta.includes("rutina")||pregunta.includes("ejercicios"))
-            return "Como principiante puedes hacer rutina full body 3 veces por semana.";
-        if(pregunta.includes("dias"))
-            return "Puedes entrenar entre 3 y 4 días por semana.";
-        if(pregunta.includes("dolor"))
-            return "Es normal dolor muscular al inicio. Si es dolor fuerte en articulaciones debes descansar.";
-        return "Soy tu asistente AdsoFitness 💛 Pregunta sobre rutinas, alimentación o objetivos.";
+    const pregunta = input.toLowerCase();
+
+    // 🔻 OBJETIVO: BAJAR DE PESO
+    if(pregunta.includes("bajar") || pregunta.includes("peso") || pregunta.includes("adelgazar") || pregunta.includes("grasa")){
+        return "Para bajar grasa enfócate en déficit calórico, entrena fuerza 3-4 días y agrega cardio. Prioriza comida real y evita ultraprocesados.";
+    }
+
+    // 🔻 OBJETIVO: GANAR MASA MUSCULAR
+    if(pregunta.includes("masa") || pregunta.includes("musculo") || pregunta.includes("aumentar")){
+        return "Para ganar masa muscular entrena fuerza 4-5 días, aplica sobrecarga progresiva y consume suficiente proteína (1.6 - 2g por kg de peso).";
+    }
+
+    // 🔻 RUTINAS
+    if(pregunta.includes("rutina") || pregunta.includes("ejercicio")){
+        return "Una buena rutina depende de tu nivel. Principiantes: full body 3 días. Intermedio: torso-pierna. Avanzado: push pull legs.";
+    }
+
+    // 🔻 TÉCNICA
+    if(pregunta.includes("tecnica") || pregunta.includes("postura") || pregunta.includes("forma")){
+        return "La técnica es clave. Prioriza ejecución controlada, rango completo de movimiento y evita levantar más peso del que puedes controlar.";
+    }
+
+    // 🔻 SERIES Y REPETICIONES
+    if(pregunta.includes("series") || pregunta.includes("repeticiones")){
+        return "Para hipertrofia: 3-4 series de 8-12 reps. Fuerza: 4-6 reps. Resistencia: 12-15 reps.";
+    }
+
+    // 🔻 DESCANSO
+    if(pregunta.includes("descanso")){
+        return "Descansa entre 60-90 segundos para hipertrofia. Dormir bien es clave para recuperar y crecer.";
+    }
+
+    // 🔻 ALIMENTACIÓN GENERAL
+    if(pregunta.includes("comida") || pregunta.includes("alimentacion") || pregunta.includes("dieta")){
+        return "Incluye proteína (pollo, huevos), carbohidratos (arroz, papa) y grasas saludables (aguacate). Mantente hidratado.";
+    }
+
+    // 🔻 PRE ENTRENAMIENTO
+    if(pregunta.includes("antes") || pregunta.includes("pre entreno")){
+        return "Antes de entrenar consume carbohidratos y algo de proteína: ejemplo arroz con pollo o avena con huevo.";
+    }
+
+    // 🔻 POST ENTRENAMIENTO
+    if(pregunta.includes("despues") || pregunta.includes("post entreno")){
+        return "Después de entrenar consume proteína y carbohidratos para recuperación: pollo con arroz o batido con fruta.";
+    }
+
+    // 🔻 CARDIO
+    if(pregunta.includes("cardio")){
+        return "El cardio ayuda a quemar calorías, pero no reemplaza el entrenamiento de fuerza.";
+    }
+
+    // 🔻 DÍAS DE ENTRENAMIENTO
+    if(pregunta.includes("dias")){
+        return "Puedes entrenar 3-5 días por semana dependiendo de tu objetivo y nivel.";
+    }
+
+    // 🔻 DOLOR
+    if(pregunta.includes("dolor")){
+        return "El dolor muscular es normal al inicio. Si es dolor articular o muy fuerte, descansa y revisa técnica.";
+    }
+
+    // 🔻 PROGRESO
+    if(pregunta.includes("progreso") || pregunta.includes("mejorar")){
+        return "Para progresar aumenta peso, repeticiones o mejora la técnica cada semana.";
+    }
+
+    // 🔻 PRINCIPIANTES
+    if(pregunta.includes("principiante") || pregunta.includes("empezar")){
+        return "Empieza con ejercicios básicos, aprende técnica y sé constante. No busques resultados rápidos.";
+    }
+
+    // 🔻 SUPLEMENTOS
+    if(pregunta.includes("suplemento") || pregunta.includes("proteina")){
+        return "Los suplementos ayudan pero no son necesarios. Lo más importante es tu alimentación.";
+    }
+
+    // 🔻 ABDOMEN
+    if(pregunta.includes("abdomen") || pregunta.includes("abs")){
+        return "El abdomen se marca con dieta y déficit calórico. Entrénalo 2-3 veces por semana.";
+    }
+
+    // 🔻 MOTIVACIÓN
+    if(pregunta.includes("motivacion")){
+        return "La disciplina vence a la motivación. Entrena aunque no tengas ganas.";
+    }
+
+    // 🔻 RESPUESTA GENERAL
+    return "Soy tu asistente AdsoFitness 💛 Pregunta sobre rutinas, alimentación, técnica o tus objetivos.";
+
     }
 
     function sendMessage(){

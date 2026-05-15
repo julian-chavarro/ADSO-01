@@ -1,4 +1,4 @@
-package com.example.adso_01;
+package com.example.adso_01.model;
 
 public class Usuario {
 

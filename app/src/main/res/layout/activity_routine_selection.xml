@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#F9F9F7"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecciona tu entrenamiento"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp"
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:id="@+id/btnDay1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Lunes - Pecho / Empuje"
+        android:layout_marginBottom="12dp"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/black"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+    <Button
+        android:id="@+id/btnDay2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Martes - Espalda / Tracción"
+        android:layout_marginBottom="12dp"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/black"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+    <Button
+        android:id="@+id/btnDay3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Miércoles - Pierna"
+        android:layout_marginBottom="12dp"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/black"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+    <Button
+        android:id="@+id/btnDay4"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Jueves - Hombros / Core"
+        android:layout_marginBottom="12dp"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/black"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+    <Button
+        android:id="@+id/btnDay5"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Viernes - Full Body / Brazos"
+        android:layout_marginBottom="32dp"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/black"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+    <Button
+        android:id="@+id/btnBackSelection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volver al Lobby"
+        android:textAllCaps="false"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#3F51B5"/>
+
+</LinearLayout>
