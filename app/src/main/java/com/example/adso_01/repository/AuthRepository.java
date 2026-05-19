@@ -28,9 +28,6 @@ public class AuthRepository {
                         callback.onComplete(task.isSuccessful(), task.getException()));
     }
 
-    /**
-     * Registra un usuario y crea su perfil inicial en Firestore de forma atómica.
-     */
     public void register(String email, String password, AuthOperationCallback callback) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -39,7 +36,7 @@ public class AuthRepository {
                         Map<String, Object> user = new HashMap<>();
                         user.put("email", email);
                         
-                        // Esperamos a que la base de datos se actualice antes de confirmar éxito
+                        // Guardar en Cloud Firestore
                         db.collection("usuarios").document(userId).set(user)
                                 .addOnCompleteListener(dbTask -> 
                                     callback.onComplete(dbTask.isSuccessful(), dbTask.getException()));

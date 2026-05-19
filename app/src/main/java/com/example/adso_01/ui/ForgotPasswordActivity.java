@@ -16,7 +16,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText edtEmailForgot;
     private Button btnSendRecovery;
 
-    // 🔥 NUEVO: ViewModel
     private AuthViewModel viewModel;
 
     @Override
@@ -26,8 +25,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         edtEmailForgot = findViewById(R.id.edtEmailForgot);
         btnSendRecovery = findViewById(R.id.btnSendRecovery);
+        Button btnBackToLogin = findViewById(R.id.btnVolverLoginForgot); // Asegúrate de que este ID exista en el XML
 
-        // 🔥 NUEVO: inicializar ViewModel
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         btnSendRecovery.setOnClickListener(v -> {
@@ -40,12 +39,19 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             viewModel.resetPassword(email, (success, err) -> {
                 if (success) {
-                    Toast.makeText(this, "Correo de recuperación enviado", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Correo de recuperación enviado. Revisa tu bandeja de entrada.", Toast.LENGTH_LONG).show();
+                    // Al finalizar la actividad, vuelve automáticamente a la pantalla anterior (Login)
+                    finish();
                 } else {
                     String msg = err != null ? err.getMessage() : "Error desconocido";
                     Toast.makeText(this, "Error: " + msg, Toast.LENGTH_LONG).show();
                 }
             });
         });
+
+        // Botón para volver manualmente al login
+        if (btnBackToLogin != null) {
+            btnBackToLogin.setOnClickListener(v -> finish());
+        }
     }
 }

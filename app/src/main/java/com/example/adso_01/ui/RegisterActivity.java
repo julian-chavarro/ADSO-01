@@ -15,7 +15,7 @@ import com.example.adso_01.viewmodel.AuthViewModel;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText txtUser, txtPassword;
-    private Button btnCreate;
+    private Button btnCreate, btnBackToLogin;
 
     private AuthViewModel viewModel;
 
@@ -28,17 +28,16 @@ public class RegisterActivity extends AppCompatActivity {
         txtUser = findViewById(R.id.edtEmailRegister);
         txtPassword = findViewById(R.id.edtPasswordRegister);
         btnCreate = findViewById(R.id.btnCreateAccount);
+        btnBackToLogin = findViewById(R.id.btnVolverLoginRegister);
 
         // Inicializar ViewModel
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
-        // Evento del botón
+        // Evento del botón de registro
         btnCreate.setOnClickListener(v -> {
-
             String email = txtUser.getText().toString().trim();
             String password = txtPassword.getText().toString().trim();
 
-            // Validaciones
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
                 return;
@@ -49,25 +48,21 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            // Registro usando ViewModel
             viewModel.register(email, password, (success, err) -> {
-
                 if (success) {
-
                     Toast.makeText(this, "Registro exitoso", Toast.LENGTH_LONG).show();
-
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    // Volver al login tras registro exitoso
                     finish();
-
                 } else {
-
                     String msg = err != null ? err.getMessage() : "Error desconocido";
                     Toast.makeText(this, "Error: " + msg, Toast.LENGTH_LONG).show();
                 }
-
             });
-
         });
+
+        // Evento del botón para volver al Login
+        if (btnBackToLogin != null) {
+            btnBackToLogin.setOnClickListener(v -> finish());
+        }
     }
 }

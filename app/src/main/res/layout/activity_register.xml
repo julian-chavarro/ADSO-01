@@ -3,7 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crear Cuenta"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
 
     <EditText
         android:id="@+id/edtEmailRegister"
@@ -17,11 +26,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/app_CreatePassword"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:layout_marginTop="10dp"/>
 
     <Button
         android:id="@+id/btnCreateAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_btnCreate"/>
+        android:text="@string/app_btnCreate"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/btnVolverLoginRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_btnBackToLogin"
+        android:backgroundTint="@android:color/transparent"
+        android:textColor="@android:color/black"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_marginTop="10dp"/>
 </LinearLayout>
