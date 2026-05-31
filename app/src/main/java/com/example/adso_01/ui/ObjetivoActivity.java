@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.adso_01.R;
+import com.example.adso_01.model.FitnessGoals;
 import com.example.adso_01.model.Usuario;
 import com.example.adso_01.viewmodel.UserViewModel;
 
@@ -27,9 +28,8 @@ public class ObjetivoActivity extends AppCompatActivity {
 
     private UserViewModel viewModel;
 
-    String[] sexo = {"Masculino","Femenino"};
-    String[] actividad = {"Ligera","Moderada","Intensa"};
-    String[] objetivo = {"Ganar músculo","Perder grasa","Mantener peso"};
+    private final String[] sexo = {"Masculino", "Femenino"};
+    private final String[] actividad = {"Ligera", "Moderada", "Intensa"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +42,65 @@ public class ObjetivoActivity extends AppCompatActivity {
         spSexo = findViewById(R.id.spSexo);
         spActividad = findViewById(R.id.spActividad);
         spObjetivo = findViewById(R.id.spObjetivo);
-
         btnCalcular = findViewById(R.id.btnCalcular);
         txtCalorias = findViewById(R.id.txtCalorias);
         btnVolver = findViewById(R.id.btnVolver);
 
-        viewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        viewModel = new ViewModelProvider(
+                this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())
+        ).get(UserViewModel.class);
 
         cargarSpinners();
-        cargarDatosUsuario();
+        observeViewModel();
 
-        btnCalcular.setOnClickListener(v -> calcularCalorias());
+        btnCalcular.setOnClickListener(v -> calcularYGuardar());
         btnVolver.setOnClickListener(v -> finish());
+
+        viewModel.loadUser();
+    }
+
+    private void observeViewModel() {
+        viewModel.getUserState().observe(this, state -> {
+            if (state == null) {
+                return;
+            }
+
+            if (state.isError() && state.getMessage() != null) {
+                Toast.makeText(this, state.getMessage(), Toast.LENGTH_SHORT).show();
+                viewModel.clearUserState();
+                return;
+            }
+
+            if (!state.isSuccess()) {
+                return;
+            }
+
+            Usuario usuario = state.getData();
+            if (usuario == null) {
+                return;
+            }
+            aplicarUsuarioEnFormulario(usuario);
+        });
+
+        viewModel.getSaveState().observe(this, state -> {
+            if (state == null) {
+                return;
+            }
+            btnCalcular.setEnabled(!state.isLoading());
+
+            if (state.isError() && state.getMessage() != null) {
+                Toast.makeText(this, state.getMessage(), Toast.LENGTH_SHORT).show();
+                viewModel.clearSaveState();
+            }
+        });
+
+        viewModel.getSaveSuccess().observe(this, event -> {
+            if (event == null || event.getContentIfNotHandled() == null) {
+                return;
+            }
+            Toast.makeText(this, R.string.success_save_goals, Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void cargarSpinners() {
@@ -76,10 +123,10 @@ public class ObjetivoActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, actividad));
 
         spObjetivo.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, objetivo));
+                android.R.layout.simple_spinner_item, FitnessGoals.OBJETIVOS));
     }
 
-    private void calcularCalorias() {
+    private void calcularYGuardar() {
         int edad = (int) spEdad.getSelectedItem();
         int peso = (int) spPeso.getSelectedItem();
         int estatura = (int) spEstatura.getSelectedItem();
@@ -88,66 +135,47 @@ public class ObjetivoActivity extends AppCompatActivity {
         String actividadSel = spActividad.getSelectedItem().toString();
         String objetivoSel = spObjetivo.getSelectedItem().toString();
 
-        double calorias = calcularBMR(edad, peso, estatura, sexoSel);
+        int calorias = viewModel.calcularCaloriasRecomendadas(
+                edad, peso, estatura, sexoSel, actividadSel, objetivoSel);
+        txtCalorias.setText(calorias + " kcal");
 
-        switch (actividadSel) {
-            case "Ligera": calorias *= 1.3; break;
-            case "Moderada": calorias *= 1.5; break;
-            case "Intensa": calorias *= 1.7; break;
-        }
-
-        switch (objetivoSel) {
-            case "Ganar músculo": calorias += 300; break;
-            case "Perder grasa": calorias -= 300; break;
-        }
-
-        int caloriasFinal = (int) calorias;
-        txtCalorias.setText(caloriasFinal + " kcal");
-
-        Usuario usuario = new Usuario(
-                edad, peso, estatura,
-                sexoSel, actividadSel, objetivoSel,
-                caloriasFinal
-        );
-
-        // REFACTORED: Ahora usamos el callback personalizado que devuelve (success, error)
-        // en lugar de exponer el objeto Task de Firebase.
-        viewModel.guardarUsuario(usuario, (success, error) -> {
-            if (success) {
-                Toast.makeText(this, "Objetivos guardados 🔥", Toast.LENGTH_SHORT).show();
-            } else {
-                String errorMsg = error != null ? error.getMessage() : "Error desconocido";
-                Toast.makeText(this, "Error al guardar: " + errorMsg, Toast.LENGTH_SHORT).show();
-            }
-        });
+        Usuario usuario = viewModel.buildUsuarioFromForm(
+                edad, peso, estatura, sexoSel, actividadSel, objetivoSel);
+        viewModel.saveUser(usuario);
     }
 
-    private double calcularBMR(int edad, int peso, int estatura, String sexo) {
-        return sexo.equals("Masculino")
-                ? (10 * peso) + (6.25 * estatura) - (5 * edad) + 5
-                : (10 * peso) + (6.25 * estatura) - (5 * edad) - 161;
-    }
-
-    private void cargarDatosUsuario() {
-        viewModel.obtenerUsuario((usuario, error) -> {
-            if (error != null || usuario == null) {
-                return;
-            }
-
+    private void aplicarUsuarioEnFormulario(Usuario usuario) {
+        if (usuario.getEdad() > 0) {
             spEdad.setSelection(Math.max(0, usuario.getEdad() - 10));
+        }
+        if (usuario.getPeso() > 0) {
             spPeso.setSelection(Math.max(0, usuario.getPeso() - 30));
+        }
+        if (usuario.getEstatura() > 0) {
             spEstatura.setSelection(Math.max(0, usuario.getEstatura() - 120));
+        }
 
-            int idxSexo = Arrays.asList(sexo).indexOf(usuario.getSexo());
-            if (idxSexo >= 0) spSexo.setSelection(idxSexo);
+        int idxSexo = Arrays.asList(sexo).indexOf(usuario.getSexo());
+        if (idxSexo >= 0) {
+            spSexo.setSelection(idxSexo);
+        }
 
-            int idxActividad = Arrays.asList(actividad).indexOf(usuario.getActividad());
-            if (idxActividad >= 0) spActividad.setSelection(idxActividad);
+        int idxActividad = Arrays.asList(actividad).indexOf(usuario.getActividad());
+        if (idxActividad >= 0) {
+            spActividad.setSelection(idxActividad);
+        }
 
-            int idxObjetivo = Arrays.asList(objetivo).indexOf(usuario.getObjetivo());
-            if (idxObjetivo >= 0) spObjetivo.setSelection(idxObjetivo);
+        int idxObjetivo = Arrays.asList(FitnessGoals.OBJETIVOS).indexOf(usuario.getObjetivo());
+        if (idxObjetivo >= 0) {
+            spObjetivo.setSelection(idxObjetivo);
+        } else if (FitnessGoals.GANAR_MUSCULO.equals(usuario.getObjetivo())) {
+            // Legacy: "Ganar músculo" → seleccionar "Ganar masa muscular"
+            int idx = Arrays.asList(FitnessGoals.OBJETIVOS).indexOf(FitnessGoals.GANAR_MASA_MUSCULAR);
+            if (idx >= 0) spObjetivo.setSelection(idx);
+        }
 
-            txtCalorias.setText("Calorías recomendadas: " + usuario.getCalorias() + " kcal");
-        });
+        if (usuario.getCalorias() > 0) {
+            txtCalorias.setText(getString(R.string.objetivo_calorias_format, usuario.getCalorias()));
+        }
     }
 }

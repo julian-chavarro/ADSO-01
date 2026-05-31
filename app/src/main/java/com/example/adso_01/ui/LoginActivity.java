@@ -8,110 +8,110 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.lifecycle.ViewModelProvider;
-import com.example.adso_01.viewmodel.AuthViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.adso_01.R;
+import com.example.adso_01.viewmodel.AuthViewModel;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String PREFS_NAME = "LoginPrefs";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_PASSWORD = "password";
+
     private EditText txtUser, txtPassword;
     private CheckBox chkRemember;
+    private Button btnSign;
     private SharedPreferences prefs;
-
     private AuthViewModel viewModel;
-
-    private static final String PREFS_NAME = "LoginPrefs"; // Nombre del archivo SharedPreferences
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Conectar vistas
         txtUser = findViewById(R.id.txtUser);
         txtPassword = findViewById(R.id.txtPassword);
         chkRemember = findViewById(R.id.chkRemember);
-        Button btnSign = findViewById(R.id.btnSign);
+        btnSign = findViewById(R.id.btnSign);
         Button btnRegister = findViewById(R.id.btnRegister);
         TextView txtOlvide = findViewById(R.id.tvOlvidePassword);
 
-        viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-
-
-        // Inicializar SharedPreferences
+        viewModel = new ViewModelProvider(
+                this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())
+        ).get(AuthViewModel.class);
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
-        // Cargar datos guardados si existen
         loadSavedCredentials();
+        observeViewModel();
 
-        // LOGIN
-        btnSign.setOnClickListener(v -> {
-            String email = txtUser.getText().toString().trim();
-            String password = txtPassword.getText().toString().trim();
+        btnSign.setOnClickListener(v -> viewModel.login(
+                txtUser.getText().toString(),
+                txtPassword.getText().toString()));
 
-            if(email.isEmpty() || password.isEmpty()){
-                Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
+        btnRegister.setOnClickListener(v ->
+                startActivity(new Intent(this, RegisterActivity.class)));
+
+        txtOlvide.setOnClickListener(v ->
+                startActivity(new Intent(this, ForgotPasswordActivity.class)));
+    }
+
+    private void observeViewModel() {
+        viewModel.getLoginState().observe(this, state -> {
+            if (state == null) {
+                return;
+            }
+            btnSign.setEnabled(!state.isLoading());
+
+            if (state.isError() && state.getMessage() != null) {
+                Toast.makeText(this, state.getMessage(), Toast.LENGTH_SHORT).show();
+                viewModel.clearLoginState();
+            }
+        });
+
+        viewModel.getLoginSuccess().observe(this, event -> {
+            if (event == null || event.getContentIfNotHandled() == null) {
                 return;
             }
 
-            viewModel.login(email, password, (success, err) -> {
-                if (success) {
-                    Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.success_login, Toast.LENGTH_SHORT).show();
 
-                    if (chkRemember.isChecked()) {
-                        saveCredentials(email, password);
-                    } else {
-                        clearCredentials();
-                    }
+            String email = txtUser.getText().toString().trim();
+            String password = txtPassword.getText().toString();
+            if (chkRemember.isChecked()) {
+                saveCredentials(email, password);
+            } else {
+                clearSavedCredentials();
+            }
 
-                    Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
-
-        // REGISTRO
-        btnRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        });
-
-        // OLVIDÉ CONTRASEÑA → Abre nueva Activity
-        txtOlvide.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, LobbyActivity.class));
+            finish();
         });
     }
 
-    // 🔹 Método para guardar credenciales
-    private void saveCredentials(String email, String password){
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("email", email);
-        editor.putString("password", password);
-        editor.apply();
+    private void saveCredentials(String email, String password) {
+        prefs.edit()
+                .putString(KEY_EMAIL, email)
+                .putString(KEY_PASSWORD, password)
+                .apply();
     }
 
-    // 🔹 Método para cargar credenciales guardadas
-    private void loadSavedCredentials(){
-        String email = prefs.getString("email", "");
-        String password = prefs.getString("password", "");
-        if(!email.isEmpty() && !password.isEmpty()){
+    private void loadSavedCredentials() {
+        String email = prefs.getString(KEY_EMAIL, "");
+        String password = prefs.getString(KEY_PASSWORD, "");
+        if (!email.isEmpty()) {
             txtUser.setText(email);
-            txtPassword.setText(password);
             chkRemember.setChecked(true);
+        }
+        if (!password.isEmpty()) {
+            txtPassword.setText(password);
         }
     }
 
-    // 🔹 Método para borrar credenciales
-    private void clearCredentials(){
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-        editor.apply();
+    private void clearSavedCredentials() {
+        prefs.edit().remove(KEY_EMAIL).remove(KEY_PASSWORD).apply();
     }
 }

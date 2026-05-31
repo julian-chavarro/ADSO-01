@@ -1,11 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:padding="24dp"
+    android:gravity="center"
+    android:background="?attr/colorSurface">
 
     <!-- Título de la pantalla -->
     <TextView
@@ -13,24 +16,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_welcome"
-        android:textSize="24sp"
-        android:textColor="#000000"
-        android:textStyle="bold"/>
+        android:textSize="32sp"
+        android:textColor="?attr/colorOnSurface"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_textHi"
+        android:textSize="16sp"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:layout_marginBottom="48dp"/>
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         android:src="@drawable/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"
+        android:contentDescription="Logo ADSO Fitness"
+        android:layout_marginBottom="48dp"/>
 
-    <!-- Boton de iniciar-->
-    <Button
+    <!-- Botón de iniciar con estándar Material 3 -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnstart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
         android:text="@string/app_button"
-        android:layout_marginTop="20dp"/>
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        app:cornerRadius="16dp"
+        style="@style/Widget.Material3.Button" />
+
 </LinearLayout>

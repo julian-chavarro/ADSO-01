@@ -2,7 +2,12 @@ package com.example.adso_01.model;
 
 import java.io.Serializable;
 
+/**
+ * Modelo de dominio para el Usuario.
+ * Sigue las reglas de AGENTS.md: objeto puro (POJO).
+ */
 public class Usuario implements Serializable {
+    private String nombre;
     private String email;
     private int edad;
     private int peso;
@@ -14,7 +19,9 @@ public class Usuario implements Serializable {
 
     public Usuario() {}
 
-    public Usuario(int edad, int peso, int estatura, String sexo, String actividad, String objetivo, int calorias) {
+    // Constructor requerido para la lógica de negocio en el ViewModel
+    public Usuario(int edad, int peso, int estatura, String sexo,
+                   String actividad, String objetivo, int calorias) {
         this.edad = edad;
         this.peso = peso;
         this.estatura = estatura;
@@ -24,7 +31,9 @@ public class Usuario implements Serializable {
         this.calorias = calorias;
     }
 
-    // Getters y Setters necesarios para Firestore
+    // Getters y Setters
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
     public int getEdad() { return edad; }

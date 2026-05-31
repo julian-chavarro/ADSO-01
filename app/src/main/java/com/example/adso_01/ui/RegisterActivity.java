@@ -1,6 +1,5 @@
 package com.example.adso_01.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +13,8 @@ import com.example.adso_01.viewmodel.AuthViewModel;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText txtUser, txtPassword;
+    private EditText txtNombre, txtUser, txtPassword;
     private Button btnCreate, btnBackToLogin;
-
     private AuthViewModel viewModel;
 
     @Override
@@ -24,45 +22,50 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Conectar vistas
+        // Vincular vistas con el nuevo campo de nombre
+        txtNombre = findViewById(R.id.edtNombreRegister);
         txtUser = findViewById(R.id.edtEmailRegister);
         txtPassword = findViewById(R.id.edtPasswordRegister);
         btnCreate = findViewById(R.id.btnCreateAccount);
         btnBackToLogin = findViewById(R.id.btnVolverLoginRegister);
 
-        // Inicializar ViewModel
-        viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        viewModel = new ViewModelProvider(
+                this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())
+        ).get(AuthViewModel.class);
+        
+        observeViewModel();
 
-        // Evento del botón de registro
         btnCreate.setOnClickListener(v -> {
+            String nombre = txtNombre.getText().toString().trim();
             String email = txtUser.getText().toString().trim();
             String password = txtPassword.getText().toString().trim();
-
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (password.length() < 6) {
-                Toast.makeText(this, "La contraseña debe tener mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            viewModel.register(email, password, (success, err) -> {
-                if (success) {
-                    Toast.makeText(this, "Registro exitoso", Toast.LENGTH_LONG).show();
-                    // Volver al login tras registro exitoso
-                    finish();
-                } else {
-                    String msg = err != null ? err.getMessage() : "Error desconocido";
-                    Toast.makeText(this, "Error: " + msg, Toast.LENGTH_LONG).show();
-                }
-            });
+            
+            viewModel.register(nombre, email, password);
         });
 
-        // Evento del botón para volver al Login
         if (btnBackToLogin != null) {
             btnBackToLogin.setOnClickListener(v -> finish());
         }
+    }
+
+    private void observeViewModel() {
+        viewModel.getRegisterState().observe(this, state -> {
+            if (state == null) return;
+            
+            btnCreate.setEnabled(!state.isLoading());
+
+            if (state.isError() && state.getMessage() != null) {
+                Toast.makeText(this, state.getMessage(), Toast.LENGTH_LONG).show();
+                viewModel.clearRegisterState();
+            }
+        });
+
+        viewModel.getRegisterSuccess().observe(this, event -> {
+            if (event == null || event.getContentIfNotHandled() == null) return;
+            
+            Toast.makeText(this, "¡Cuenta creada con éxito!", Toast.LENGTH_LONG).show();
+            finish(); // Vuelve al login
+        });
     }
 }

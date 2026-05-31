@@ -1,109 +1,385 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".ui.LobbyActivity">
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <LinearLayout
+    <!-- ===== SCROLL PRINCIPAL ===== -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:padding="24dp">
+        android:clipToPadding="false"
+        android:paddingBottom="64dp"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/txtHi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_textHi"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="30dp" />
-
-        <Button
-            android:id="@+id/btnObjets"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_btnObjets"
-            android:layout_marginBottom="10dp"/>
-
-        <Button
-            android:id="@+id/btnFood"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_btnFood"
-            android:layout_marginBottom="10dp"/>
-
-        <Button
-            android:id="@+id/btnProgress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_btnProgress"
-            android:layout_marginBottom="10dp"/>
-
-        <Button
-            android:id="@+id/btnStartRoutine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_btnStarRoutine"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="#FFEB3B"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"/>
-
-        <!-- TARJETA DONDE SE MOSTRARÁ EL OBJETIVO -->
         <LinearLayout
-            android:id="@+id/cardObjetivo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#EFEFEF"
-            android:padding="16dp"
-            android:layout_marginTop="20dp"
-            android:visibility="gone">
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp">
 
+            <!-- ===== TOPBAR: SALUDO + LOGO + FECHA/HORA ===== -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <LinearLayout
+                    android:id="@+id/layoutGreeting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imgLogo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="12dp">
+
+                    <TextView
+                        android:id="@+id/tvGreeting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¡Vamos con todo!"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <TextView
+                        android:id="@+id/tvRealDateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cargando fecha y hora..."
+                        android:textSize="13sp"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginTop="2dp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imgLogo"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/logo"
+                    android:contentDescription="ADSO Fitness"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/bg_avatar_circle"
+                    android:padding="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ===== CARD: OBJETIVO PRINCIPAL (mismo estilo que Nutrición/Chat) ===== -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardObjetivoPrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Header: icono + label "Objetivo" -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_target"
+                            android:background="@drawable/bg_icon_blue"
+                            android:padding="7dp"
+                            android:contentDescription="Objetivo"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lobby_objective_label"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginStart="12dp"/>
+                    </LinearLayout>
+
+                    <!-- Valor del objetivo del usuario -->
+                    <TextView
+                        android:id="@+id/tvObjetivoValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cargando..."
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Separador -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?attr/colorOutlineVariant"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Label calorías -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lobby_calories_label"
+                        android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurfaceVariant"/>
+
+                    <!-- Valor calorías -->
+                    <TextView
+                        android:id="@+id/tvCaloriasValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-- kcal/día"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
+                        android:layout_marginTop="4dp"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===== CARD: NUTRICIÓN ===== -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNutricionPrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_nutrition"
+                            android:background="@drawable/bg_icon_green"
+                            android:padding="7dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lobby_nutrition_title"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface"
+                            android:layout_marginStart="10dp"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lobby_nutrition_desc"
+                        android:textSize="13sp"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginBottom="14dp"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressNutricion"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:progress="0"
+                        android:max="100"
+                        android:progressTint="@color/green_800"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvNutricionProgreso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0% completado"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/green_800"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===== ACCESOS RÁPIDOS (2 cards: ChatFit + Progreso) ===== -->
             <TextView
-                android:id="@+id/txtObjetivoUsuario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_objetivoDelUsuario"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:text="Accesos rápidos"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:layout_marginBottom="8dp"/>
 
-            <TextView
-                android:id="@+id/txtCaloriasUsuario"
-                android:layout_width="wrap_content"
+            <GridLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_caloriasUsuario"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:columnCount="2"
+                android:rowCount="1"
+                android:layout_marginBottom="12dp">
+
+                <!-- Card: ChatFit -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardChat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant">
+                    <LinearLayout android:orientation="horizontal" android:padding="14dp" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <ImageView android:layout_width="36dp" android:layout_height="36dp" android:src="@drawable/ic_chat" android:background="@drawable/bg_icon_amber" android:padding="7dp"/>
+                        <LinearLayout android:orientation="vertical" android:layout_marginStart="10dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+                            <TextView android:text="ChatFit" android:textSize="14sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurface"/>
+                            <TextView android:text="Asistente" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurfaceVariant"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Card: Progreso -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardProgreso"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant">
+                    <LinearLayout android:orientation="horizontal" android:padding="14dp" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <ImageView android:layout_width="36dp" android:layout_height="36dp" android:src="@drawable/ic_chart" android:background="@drawable/bg_icon_purple" android:padding="7dp"/>
+                        <LinearLayout android:orientation="vertical" android:layout_marginStart="10dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+                            <TextView android:text="Progreso" android:textSize="14sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurface"/>
+                            <TextView android:id="@+id/tvProgresoSub" android:text="Ver marcas" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurfaceVariant"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </GridLayout>
+
+            <!-- ===== CARD: MOTIVACIÓN ===== -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardMotivacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/green_50"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/green_200">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_bolt"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="Motivación"/>
+
+                        <TextView
+                            android:id="@+id/tvMotivacion"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="La consistencia supera siempre a la intensidad puntual. ¡Sigue así!"
+                            android:textSize="12sp"
+                            android:textColor="@color/green_800"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvMotivacionExtra"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lobby_motivation_extra"
+                        android:textSize="12sp"
+                        android:textColor="@color/green_800"
+                        android:layout_marginTop="8dp"
+                        android:paddingStart="30dp"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-    </LinearLayout>
+    <!-- ===== BOTTOM BAR: SOLO CTA ===== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:background="?attr/colorSurface"
+        android:elevation="8dp"
+        android:paddingVertical="4dp">
 
-    <!-- CHATFIT FLOTANTE -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
-        android:gravity="center">
+        <!-- CTA: EMPEZAR ENTRENAMIENTO (ocupa casi todo el ancho) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCtaEntrenar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/lobby_cta_train"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            app:backgroundTint="@color/blue_800"
+            app:cornerRadius="14dp"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.03"
+            android:layout_marginHorizontal="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/btnChatBubble"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:background="@drawable/bubble_background"
-            android:text="@string/app_btnChatBubble"
-            android:textColor="#4A148C"
-            android:textSize="28sp"
-            android:elevation="8dp"/>
-
-    </LinearLayout>
-
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

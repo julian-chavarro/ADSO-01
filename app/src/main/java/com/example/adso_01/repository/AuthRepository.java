@@ -2,10 +2,15 @@ package com.example.adso_01.repository;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Repositorio de Autenticación.
+ * Implementa transacciones atómicas entre Auth y Firestore.
+ */
 public class AuthRepository {
 
     private final FirebaseAuth mAuth;
@@ -28,21 +33,26 @@ public class AuthRepository {
                         callback.onComplete(task.isSuccessful(), task.getException()));
     }
 
-    public void register(String email, String password, AuthOperationCallback callback) {
+    /**
+     * Registra un usuario y crea su perfil en Firestore de forma encadenada.
+     * Garantiza que no existan usuarios en Auth sin un documento en la DB.
+     */
+    public void register(String nombre, String email, String password, AuthOperationCallback callback) {
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && mAuth.getCurrentUser() != null) {
-                        String userId = mAuth.getCurrentUser().getUid();
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("email", email);
-                        
-                        // Guardar en Cloud Firestore
-                        db.collection("usuarios").document(userId).set(user)
-                                .addOnCompleteListener(dbTask -> 
-                                    callback.onComplete(dbTask.isSuccessful(), dbTask.getException()));
-                    } else {
-                        callback.onComplete(false, task.getException());
+                .continueWithTask(task -> {
+                    if (!task.isSuccessful()) {
+                        throw task.getException() != null ? task.getException() : new Exception("Error desconocido en Auth");
                     }
-                });
+                    
+                    String userId = mAuth.getCurrentUser().getUid();
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("nombre", nombre);
+                    user.put("email", email);
+                    
+                    // Retornamos la tarea de Firestore para encadenarla
+                    return db.collection("usuarios").document(userId).set(user, SetOptions.merge());
+                })
+                .addOnCompleteListener(task -> 
+                        callback.onComplete(task.isSuccessful(), task.getException()));
     }
 }

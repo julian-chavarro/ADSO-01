@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Día 2 · Lunes"
+            android:text="Día · Pecho"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#3F51B5" />
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:text="Ejercicio 2 de 5"
+            android:text="Ejercicio 1 de 5"
             android:textColor="#666666" />
     </RelativeLayout>
 
@@ -99,54 +99,49 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!-- Sección Descanso -->
+    <!-- Indicador de ejercicio completado -->
+    <TextView
+        android:id="@+id/tvExerciseCompleted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exercise_completed_indicator"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#4CAF50"
+        android:gravity="center"
+        android:padding="8dp"
+        android:visibility="gone" />
+
+    <!-- Navegación entre ejercicios -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/card_white_background"
         android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical"
         android:layout_marginTop="8dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descanso recomendado: 90 seg"
-                android:textSize="12sp"/>
-            <TextView
-                android:id="@+id/timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="01:30"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
         <Button
-            android:id="@+id/startButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Iniciar ▶"
+            android:id="@+id/btnPreviousExercise"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="@string/exercise_previous"
             android:textAllCaps="false"
             android:backgroundTint="@android:color/white"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
+            android:textColor="@android:color/black"
+            android:layout_marginEnd="4dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
-    <Button
-        android:id="@+id/nextExerciseButton"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Siguiente ejercicio →"
-        android:textAllCaps="false"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#3F51B5"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"/>
+        <Button
+            android:id="@+id/btnNextExercise"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="@string/exercise_next"
+            android:textAllCaps="false"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="#3F51B5"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+    </LinearLayout>
 
 </LinearLayout>

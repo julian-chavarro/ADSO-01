@@ -20,7 +20,7 @@ public class UserRepository {
     /**
      * Guarda los objetivos del usuario en Firestore.
      * Usa SetOptions.merge() para asegurar que el documento se cree o se actualice
-     * sin borrar datos previos como el correo electrónico.
+     * sin borrar datos previos como el nombre o el correo electrónico.
      */
     public void guardarUsuario(Usuario usuario, AuthOperationCallback callback) {
         if (auth.getCurrentUser() == null) {
@@ -39,7 +39,7 @@ public class UserRepository {
     }
 
     /**
-     * Obtiene los objetivos guardados del usuario.
+     * Obtiene el perfil completo del usuario.
      */
     public void obtenerUsuario(UserProfileCallback callback) {
         if (auth.getCurrentUser() == null) {
@@ -59,6 +59,7 @@ public class UserRepository {
         if (!doc.exists()) return null;
 
         Usuario u = new Usuario();
+        u.setNombre(doc.getString("nombre")); // Agregado: Mapeo del nombre para el Dashboard
         u.setEmail(doc.getString("email"));
         u.setEdad(doc.getLong("edad") != null ? doc.getLong("edad").intValue() : 0);
         u.setPeso(doc.getLong("peso") != null ? doc.getLong("peso").intValue() : 0);
