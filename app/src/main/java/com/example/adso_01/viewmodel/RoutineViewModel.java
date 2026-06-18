@@ -1,10 +1,10 @@
 package com.example.adso_01.viewmodel;
 
 import android.app.Application;
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.adso_01.R;
 import com.example.adso_01.model.Ejercicio;
@@ -20,51 +20,57 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
 /**
- * ViewModel para la gestión de entrenamientos.
- * Centraliza la lógica de rutinas y persistencia de series.
+ * ViewModel para la gestión de entrenamientos activos.
+ * <p>
+ * Centraliza la lógica de obtención de rutinas, persistencia de series
+ * completadas y ciclo de vida de la sesión de entrenamiento.
+ * Se comunica con {@link RoutineDataSource} para obtener los ejercicios
+ * y con {@link RoutineRepository} para persistir en Firestore.
+ * </p>
  */
-public class RoutineViewModel extends AndroidViewModel {
+@HiltViewModel
+public class RoutineViewModel extends ViewModel {
 
     private final RoutineRepository repository;
-    private final RoutineDataSource routineDataSource = new RoutineDataSource();
+    private final RoutineDataSource routineDataSource;
+    private final Application application;
 
     private final MutableLiveData<Resource<Void>> saveSerieState = new MutableLiveData<>(Resource.idle());
+
     private final MutableLiveData<Event<Boolean>> saveSerieSuccess = new MutableLiveData<>();
+
     private final MutableLiveData<Resource<Void>> sessionState = new MutableLiveData<>(Resource.idle());
 
     private String fechaSesionActual;
 
-    public RoutineViewModel(@NonNull Application application) {
-        super(application);
-        this.repository = new RoutineRepository();
+    @Inject
+    public RoutineViewModel(RoutineRepository repository, RoutineDataSource routineDataSource, Application application) {
+        this.repository = repository;
+        this.routineDataSource = routineDataSource;
+        this.application = application;
         this.fechaSesionActual = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date());
     }
 
+    // ─── Exposición de LiveData ───────────────────────────────────────────
+
     public LiveData<Resource<Void>> getSaveSerieState() { return saveSerieState; }
+
     public LiveData<Event<Boolean>> getSaveSerieSuccess() { return saveSerieSuccess; }
+
     public LiveData<Resource<Void>> getSessionState() { return sessionState; }
 
-    /**
-     * Obtiene una rutina para el grupo muscular seleccionado.
-     */
-    public List<Ejercicio> obtenerRutinaPorGrupoMuscular(String grupoMuscular) {
-        return routineDataSource.obtenerRutinaPorGrupoMuscular(grupoMuscular);
+    public List<Ejercicio> obtenerRutinaPorGrupoMuscular(String grupoMuscular, String sexo, String objetivo) {
+        return routineDataSource.obtenerRutinaPorGrupoMuscular(grupoMuscular, sexo, objetivo);
     }
 
-    /**
-     * Obtiene la rutina sugerida delegando la lógica al DataSource.
-     */
-    public List<Ejercicio> obtenerRutinaSugerida(String objetivo, String diaForzado) {
-        return routineDataSource.obtenerRutinaSugerida(objetivo, diaForzado);
-    }
-
-    /**
-     * Valida y guarda una serie en Firestore.
-     */
     public void saveSerie(String nombreEjercicio, Serie serie, String weightInput) {
         if (weightInput == null || weightInput.trim().isEmpty()) {
-            saveSerieState.setValue(Resource.error(getApplication().getString(R.string.error_weight_empty)));
+            saveSerieState.setValue(Resource.error(application.getString(R.string.error_weight_empty)));
             return;
         }
 
@@ -80,17 +86,14 @@ public class RoutineViewModel extends AndroidViewModel {
                     saveSerieSuccess.postValue(new Event<>(true));
                 } else {
                     serie.setCompletada(false);
-                    saveSerieState.postValue(Resource.error(FirebaseFirestoreErrorMapper.toMessage(getApplication(), error)));
+                    saveSerieState.postValue(Resource.error(FirebaseFirestoreErrorMapper.toMessage(application, error)));
                 }
             });
         } catch (NumberFormatException e) {
-            saveSerieState.setValue(Resource.error(getApplication().getString(R.string.error_weight_invalid)));
+            saveSerieState.setValue(Resource.error(application.getString(R.string.error_weight_invalid)));
         }
     }
 
-    /**
-     * Registra el inicio de una sesión de entrenamiento en Firestore.
-     */
     public void iniciarSesion(int totalEjercicios, String diaNombre) {
         sessionState.setValue(Resource.loading());
         repository.iniciarSesion(fechaSesionActual, totalEjercicios, diaNombre, (success, error) -> {
@@ -98,28 +101,22 @@ public class RoutineViewModel extends AndroidViewModel {
                 sessionState.postValue(Resource.success(null));
             } else {
                 sessionState.postValue(Resource.error(
-                        FirebaseFirestoreErrorMapper.toMessage(getApplication(), error)));
+                        FirebaseFirestoreErrorMapper.toMessage(application, error)));
             }
         });
     }
 
-    /**
-     * Marca la sesión actual como completada.
-     */
     public void finalizarSesion() {
         repository.finalizarSesion(fechaSesionActual, (success, error) -> {
             if (success) {
                 sessionState.postValue(Resource.success(null));
             } else {
                 sessionState.postValue(Resource.error(
-                        FirebaseFirestoreErrorMapper.toMessage(getApplication(), error)));
+                        FirebaseFirestoreErrorMapper.toMessage(application, error)));
             }
         });
     }
 
-    /**
-     * Guarda el progreso de un ejercicio (todas sus series) en la colección plana.
-     */
     public void guardarProgresoEjercicio(String nombreEjercicio, String grupoMuscular, List<Serie> seriesCompletadas) {
         if (seriesCompletadas == null || seriesCompletadas.isEmpty()) return;
 
@@ -142,9 +139,7 @@ public class RoutineViewModel extends AndroidViewModel {
         repository.guardarProgresoEjercicio(
                 nombreEjercicio, grupoMuscular, fechaSesionActual,
                 pesoMaximo, volumenTotal, repeticionesTotales, seriesCount,
-                (success, error) -> {
-                    // Silencioso: no bloquear al usuario por esto
-                });
+                (success, error) -> {});
     }
 
     public void clearSaveSerieState() {

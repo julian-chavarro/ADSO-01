@@ -1,57 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ADSO-01</string>
-    <string name="app_welcome">BIENVENIDO 👋</string>
-    <string name="app_button">Empezar 🚀</string>
-    <string name="app_textHi">How Winners Are Made 🏆</string>
-    <string name="app_textUser">Email</string>
-    <string name="app_rememberMe">Recordarme</string>
-    <string name="app_textPassword">Contraseña</string>
-    <string name="app_btnSign">Iniciar Sesión</string>
-    <string name="app_btnRegister">Registrarse</string>
-    <string name="app_btnBackToLogin">Volver al Login 🔙</string>
-    <string name="app_textForgotPassword">¿Olvidaste tu contraseña?</string>
 
-    <!-- Registro y Login -->
+    <!-- ═══════════════════════════════════════════════════════════════════
+         GENERAL / APP
+         ═══════════════════════════════════════════════════════════════════ -->
+    <string name="app_name">ADSO-01</string>
+    <string name="app_welcome">BIENVENIDO </string>
+    <string name="app_textHi">How Winners Are Made 🏆</string>
+    <string name="app_button">Empezar </string>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         LOGIN
+         ═══════════════════════════════════════════════════════════════════ -->
+    <string name="app_textUser">Email</string>
+    <string name="app_textPassword">Contraseña</string>
+    <string name="app_rememberMe">Recordarme</string>
+    <string name="app_btnSign">Iniciar Sesión</string>
+    <string name="app_textForgotPassword">¿Olvidaste tu contraseña?</string>
+    <string name="success_login">Inicio de sesión correcto</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         REGISTRO
+         ═══════════════════════════════════════════════════════════════════ -->
+    <string name="app_btnRegister">Registrarse</string>
+    <string name="app_btnBackToLogin">Volver al Login </string>
     <string name="app_CreateUser">Ingresa correo</string>
     <string name="app_CreatePassword">Crea contraseña</string>
     <string name="app_btnCreate">Crear Cuenta</string>
+    <string name="success_register">¡Cuenta creada con éxito!</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         RECUPERAR CONTRASEÑA (Forgot Password)
+         ═══════════════════════════════════════════════════════════════════ -->
     <string name="app_forgot_title">Recuperar contraseña 🔑</string>
     <string name="app_forgot_hint_email">Ingresa tu correo</string>
     <string name="app_forgot_btn_send">Enviar recuperación</string>
+    <string name="success_reset_password">Correo de recuperación enviado 📧</string>
 
-    <!-- Lobby DashBoard -->
+    <!-- ═══════════════════════════════════════════════════════════════════
+         LOBBY — Dashboard principal
+         ═══════════════════════════════════════════════════════════════════ -->
     <string name="lobby_title_objetivos">Objetivos 🎯</string>
     <string name="lobby_title_nutricion">Nutrición 🍎</string>
     <string name="lobby_title_chat">ChatFit 💬</string>
     <string name="lobby_title_progreso">Progreso 📈</string>
     <string name="lobby_title_hidratacion">Hidratación 💧</string>
+
     <string name="lobby_saludo_format">Hola, %1$s 👋</string>
     <string name="lobby_calorias_format">%1$d kcal / día ⚡</string>
     <string name="lobby_objetivo_format">Objetivo: %1$s</string>
     <string name="lobby_ejercicios_completados_format">%1$d de %2$d completados</string>
 
-    <!-- Entrenamiento (Workout) -->
+    <string name="lobby_objective_label">Objetivo</string>
+    <string name="lobby_calories_label">Calorías recomendadas</string>
+    <string name="lobby_calories_value">%1$s kcal/día</string>
+    <string name="lobby_no_goals_title">Objetivos no configurados</string>
+    <string name="lobby_no_goals_message">Debes completar tus objetivos y datos físicos antes de utilizar esta función.</string>
+
+    <string name="lobby_nutrition_title">Nutrición</string>
+    <string name="lobby_nutrition_desc">Para maximizar tus resultados sigue nuestras recomendaciones nutricionales.</string>
+    <string name="lobby_nutrition_important">¡Cuidá tu alimentación!</string>
+
+    <string name="lobby_motivation_extra">El tiempo mínimo recomendado para observar resultados en tu objetivo es de aproximadamente 3 meses de constancia.</string>
+
+    <string name="lobby_cta_train">EMPEZAR ENTRENAMIENTO</string>
+
+    <string name="lobby_streak_0">Hoy es un gran día para empezar 💪</string>
+    <string name="lobby_streak_1">Llevás %1$d día seguido entrenando 🔥</string>
+    <string name="lobby_streak_n">Llevás %1$d días seguidos entrenando 🔥</string>
+    <string name="lobby_streak_7">¡%1$d días seguidos! Sos una máquina 🔥🔥</string>
+    <string name="lobby_no_workout_today">¿Listo para romperla hoy? 💪</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         OBJETIVOS (ObjetivoActivity)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <string name="objetivo_sexo_masculino">Masculino</string>
+    <string name="objetivo_sexo_femenino">Femenino</string>
+    <string name="objetivo_actividad_ligera">Ligera</string>
+    <string name="objetivo_actividad_moderada">Moderada</string>
+    <string name="objetivo_actividad_intensa">Intensa</string>
+
+    <string name="objetivo_calorias_format">Calorías recomendadas: %1$d kcal</string>
+    <string name="success_save_goals">Objetivos guardados 🔥</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CALENTAMIENTO (WarmupActivity)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <string name="warmup_title">🔥 Calentamiento</string>
+    <string name="warmup_message">Antes de comenzar tu entrenamiento, realiza entre 5 y 10 minutos de bicicleta estática o elíptica.\n\nEste calentamiento ayuda a elevar la temperatura corporal, mejorar la circulación sanguínea y preparar músculos y articulaciones para el esfuerzo físico, reduciendo el riesgo de lesiones y mejorando el rendimiento durante la rutina.</string>
+    <string name="warmup_button">✅ Continuar entrenamiento</string>
+    <string name="warmup_back_lobby">Volver al lobby</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         WORKOUT — Entrenamiento activo (ExerciseActiveActivity)
+         ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- Progreso y navegación -->
     <string name="workout_day_format">Día · %1$s</string>
     <string name="workout_exercise_progress">Ejercicio %1$d de %2$d</string>
     <string name="workout_finish_routine">Finalizar rutina ✓</string>
     <string name="workout_next_exercise">Siguiente ejercicio →</string>
-    <string name="success_workout_complete">¡Entrenamiento completado! 🔥</string>
+
+    <string name="exercise_previous">← Anterior</string>
+    <string name="exercise_next">Siguiente →</string>
+    <string name="exercise_completed_indicator">✓ Ejercicio completado</string>
+
+    <!-- Series -->
+    <string name="set_complete">Completar</string>
+    <string name="set_done">✓ Listo</string>
+
+    <!-- Modal de descanso -->
+    <string name="rest_dialog_title">Tiempo de descanso</string>
+    <string name="rest_dialog_message">Tiempo recomendado de descanso antes de comenzar la siguiente serie.</string>
+    <string name="rest_dialog_default_time">01:30</string>
+    <string name="rest_dialog_pause">Pausar</string>
+    <string name="rest_dialog_continue">Continuar</string>
+    <string name="rest_dialog_skip">Ir a la siguiente serie</string>
+    <string name="rest_complete">¡Descanso terminado!</string>
+
+    <!-- Confirmaciones -->
+    <string name="confirm_exit_title">¿Salir del entrenamiento?</string>
+    <string name="confirm_exit_message">Perderás el progreso del ejercicio actual.</string>
+    <string name="confirm_exit_yes">Salir</string>
+    <string name="confirm_exit_no">Seguir</string>
+
+    <string name="confirm_skip_series_title">Series incompletas</string>
+    <string name="confirm_skip_series_message">Aún no has completado todas las series de este ejercicio. ¿Deseas continuar de todas formas?</string>
+    <string name="confirm_skip_series_yes">Seguir</string>
+    <string name="confirm_skip_series_no">Cancelar</string>
+
+    <!-- Mensajes de éxito del workout -->
     <string name="success_serie_saved">Serie guardada ✅</string>
     <string name="success_rest_complete">¡Descanso terminado! Dale con todo.</string>
+    <string name="success_workout_complete">¡Entrenamiento completado! 🔥</string>
 
-    <!-- Nutrición -->
+    <!-- ═══════════════════════════════════════════════════════════════════
+         WORKOUT SUMMARY — Resumen post-entreno (WorkoutSummaryActivity)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <string name="summary_title">¡Entrenamiento completado! 🔥</string>
+    <string name="summary_subtitle">Sigue así, cada entrenamiento te acerca más a tu objetivo.</string>
+    <string name="summary_subtitle_3">¡%1$d días seguidos! Ya es un hábito. 🔥</string>
+    <string name="summary_subtitle_7">Uffff, %1$d días seguidos ¡IMPARABLE! 🔥🔥</string>
+
+    <string name="summary_streak_label">Racha actual</string>
+    <string name="summary_streak_1">1 día seguido</string>
+    <string name="summary_streak_n">%1$d días seguidos</string>
+
+    <string name="summary_stats_title">Resumen del entrenamiento</string>
+    <string name="summary_exercises">ejercicios</string>
+    <string name="summary_duration">duración</string>
+    <string name="summary_muscle_group">grupo muscular</string>
+    <string name="summary_continue">Volver al inicio</string>
+    <string name="summary_phrase">El hábito es lo que te hace imparable. ¡Mañana otra vez!</string>
+
+    <string name="summary_duration_min">%d min</string>
+    <string name="summary_duration_hours">%1$dh %2$dmin</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         NUTRICIÓN (NutritionActivity)
+         ═══════════════════════════════════════════════════════════════════ -->
     <string name="nutrition_objetivo_format">Objetivo: %1$s</string>
     <string name="nutrition_calorias_format">Calorías: %1$d kcal</string>
-    <string name="objetivo_calorias_format">Calorías recomendadas: %1$d kcal</string>
+    <string name="nutrition_seleccionar">Escoge una opción diaria de alimentación en cada comida para llegar a tus objetivos 🎯</string>
 
-    <!-- Success Messages -->
-    <string name="success_login">Inicio de sesión correcto</string>
-    <string name="success_register">¡Cuenta creada con éxito!</string>
-    <string name="success_reset_password">Correo de recuperación enviado 📧</string>
-    <string name="success_save_goals">Objetivos guardados 🔥</string>
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PROGRESO (ProgressActivity)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <string name="progress_title">Mis Progresos</string>
+    <string name="progress_sessions_title">Historial de sesiones</string>
+    <string name="progress_evolution_title">Evolución por ejercicio</string>
 
-    <!-- Error Messages -->
+    <string name="progress_empty_sessions">Aún no tienes entrenamientos registrados.\n¡Completa tu primera rutina!</string>
+    <string name="progress_empty_evolution">Sin datos aún. Entrena para ver tu evolución.\n¡Te esperamos! 💪</string>
+
+    <string name="progress_volume_format">Volumen: %.0f kg</string>
+    <string name="progress_duration_format">Duración: %d min</string>
+    <string name="progress_exercises_format">%d ejercicios</string>
+    <string name="progress_series_format">%d series</string>
+
+    <string name="progress_last_weight">Último: %.0f kg</string>
+    <string name="progress_max_weight">Máx: %.0f kg</string>
+    <string name="progress_total_volume">Vol. total: %.0f kg</string>
+    <string name="progress_total_reps">Reps totales: %d</string>
+
+    <string name="progress_loading">Cargando progreso…</string>
+    <string name="progress_error">Error al cargar progreso</string>
+
+    <string name="progress_session_started">Entrenamiento iniciado</string>
+    <string name="progress_session_completed">Entrenamiento finalizado</string>
+
+    <string name="sesion_completed">Completado</string>
+    <string name="sesion_in_progress">En progreso</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FRASES MOTIVACIONALES (Arrays)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <string-array name="motivation_phrases_lobby">
+        <item>La consistencia supera siempre a la intensidad puntual.</item>
+        <item>Tu único límite es el que tú mismo te pongas.</item>
+        <item>El dolor que sientes hoy será tu fuerza mañana.</item>
+        <item>No se trata de ser el mejor, sino de ser mejor que ayer.</item>
+        <item>Tu cuerpo puede soportar casi cualquier cosa. Convence a tu mente.</item>
+        <item>Cada repetición cuenta. Cada día suma.</item>
+        <item>No pares cuando estés cansado, para cuando hayas terminado.</item>
+        <item>El gimnasio no es castigo, es privilegio.</item>
+        <item>Los campeones se construyen con hábitos, no con motivación.</item>
+        <item>El mejor proyecto en el que puedes trabajar eres tú mismo.</item>
+    </string-array>
+
+    <string-array name="motivation_phrases_summary">
+        <item>El hábito es lo que te hace imparable. ¡Mañana otra vez!</item>
+        <item>Otro día, otra victoria. Así se construyen los campeones.</item>
+        <item>Cada entrenamiento es un ladrillo más en tu mejor versión.</item>
+        <item>No es un paso de gigante, es un paso más. Y eso es suficiente.</item>
+        <item>La disciplina vence a la motivación cuando la motivación se va.</item>
+        <item>Mañana tu yo del futuro te va a agradecer haber venido hoy.</item>
+        <item>Esto no es un sprint, es una maratón. Y vas ganando.</item>
+        <item>El orgullo que sientes ahora es la prueba de que valió la pena.</item>
+    </string-array>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         MENSAJES DE ERROR — Globales
+         ═══════════════════════════════════════════════════════════════════ -->
     <string name="error_auth_generic">Error de autenticación</string>
     <string name="error_network">Error de conexión a internet</string>
     <string name="error_too_many_requests">Demasiados intentos. Intenta más tarde.</string>
@@ -61,71 +231,19 @@
     <string name="error_weak_password">Contraseña muy débil (mínimo 6 car.)</string>
     <string name="error_invalid_email">Correo no válido</string>
     <string name="error_user_disabled">Usuario deshabilitado</string>
+
     <string name="error_fields_empty">Complete todos los campos</string>
     <string name="error_password_empty">Ingrese la contraseña</string>
     <string name="error_email_empty">Ingrese el correo</string>
+
     <string name="error_profile_generic">Error al procesar el perfil</string>
     <string name="error_profile_permission">Sin permisos para acceder al perfil</string>
+    <string name="error_profile_invalid">Datos de perfil no válidos</string>
     <string name="error_session">Sesión no válida</string>
     <string name="error_no_goals">Configura tus objetivos primero</string>
     <string name="error_no_exercises_today">No hay ejercicios para hoy</string>
     <string name="error_no_exercises_day">No hay ejercicios para este día</string>
     <string name="error_weight_empty">Ingresa el peso</string>
     <string name="error_weight_invalid">Peso no válido</string>
-    <string name="error_profile_invalid">Datos de perfil no válidos</string>
 
-    <!-- Progreso -->
-    <string name="progress_title">Mis Progresos</string>
-    <string name="progress_sessions_title">Historial de sesiones</string>
-    <string name="progress_evolution_title">Evolución por ejercicio</string>
-    <string name="progress_empty_sessions">Aún no tienes entrenamientos registrados.\n¡Completa tu primera rutina!</string>
-    <string name="progress_empty_evolution">Sin datos aún. Entrena para ver tu evolución.</string>
-    <string name="progress_volume_format">Volumen: %.0f kg</string>
-    <string name="progress_duration_format">Duración: %d min</string>
-    <string name="progress_exercises_format">%d ejercicios</string>
-    <string name="progress_series_format">%d series</string>
-    <string name="progress_last_weight">Último: %.0f kg</string>
-    <string name="progress_max_weight">Máx: %.0f kg</string>
-    <string name="progress_total_volume">Vol. total: %.0f kg</string>
-    <string name="progress_total_reps">Reps totales: %d</string>
-    <string name="progress_loading">Cargando progreso…</string>
-    <string name="progress_error">Error al cargar progreso</string>
-    <string name="progress_session_started">Entrenamiento iniciado</string>
-    <string name="progress_session_completed">Entrenamiento finalizado</string>
-    <string name="confirm_exit_title">¿Salir del entrenamiento?</string>
-    <string name="confirm_exit_message">Perderás el progreso del ejercicio actual.</string>
-    <string name="confirm_exit_yes">Salir</string>
-    <string name="confirm_exit_no">Seguir</string>
-
-    <!-- Modal de Descanso -->
-    <string name="rest_dialog_title">Tiempo de descanso</string>
-    <string name="rest_dialog_message">Tiempo recomendado de descanso antes de comenzar la siguiente serie.</string>
-    <string name="rest_dialog_default_time">01:30</string>
-    <string name="rest_dialog_pause">Pausar</string>
-    <string name="rest_dialog_continue">Continuar</string>
-    <string name="rest_dialog_skip">Ir a la siguiente serie</string>
-    <string name="rest_complete">¡Descanso terminado!</string>
-
-    <!-- Navegación entre ejercicios -->
-    <string name="exercise_previous">← Anterior</string>
-    <string name="exercise_next">Siguiente →</string>
-    <string name="exercise_completed_indicator">✓ Ejercicio completado</string>
-
-    <!-- Lobby - Objetivo Principal -->
-    <string name="lobby_objective_label">Objetivo</string>
-    <string name="lobby_calories_label">Calorías recomendadas</string>
-    <string name="lobby_calories_value">%1$s kcal/día</string>
-    <string name="lobby_no_goals_title">Objetivos no configurados</string>
-    <string name="lobby_no_goals_message">Debes completar tus objetivos y datos físicos antes de utilizar esta función.</string>
-
-    <!-- Lobby - Nutrición -->
-    <string name="lobby_nutrition_title">Nutrición</string>
-    <string name="lobby_nutrition_desc">Para maximizar tus resultados sigue nuestras recomendaciones nutricionales.</string>
-    <string name="lobby_nutrition_progress">%1$d%% completado</string>
-
-    <!-- Lobby - Motivación extendida -->
-    <string name="lobby_motivation_extra">El tiempo mínimo recomendado para observar resultados en tu objetivo es de aproximadamente 3 meses de constancia.</string>
-
-    <!-- Lobby - Bottom bar CTA -->
-    <string name="lobby_cta_train">EMPEZAR ENTRENAMIENTO</string>
 </resources>

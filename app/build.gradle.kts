@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -37,6 +38,10 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 kotlin {
@@ -48,7 +53,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.activity:activity:1.8.2")
+    implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata:2.7.0")
@@ -59,6 +64,14 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.50")
+    kapt("com.google.dagger:hilt-android-compiler:2.50")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.1.0")
+
+    // Fragment KTX
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")

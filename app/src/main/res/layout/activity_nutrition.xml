@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F6FB"
+    android:background="?attr/colorSurface"
     android:fillViewport="true">
 
     <LinearLayout
@@ -11,27 +12,16 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- BOTÓN VOLVER -->
-        <ImageButton
-            android:id="@+id/btnVolver"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@android:drawable/ic_media_previous"
-            android:background="#6C63FF"
-            android:tint="#FFFFFF"
-            android:padding="8dp"
-            android:layout_marginBottom="16dp"/>
-
         <!-- MENSAJE -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Si quieres llegar a tus objetivos de manera controlada, debes alinear tu alimentación, entrenamiento y descanso."
-            android:textColor="#4B5563"
-            android:textSize="15sp"
-            android:textStyle="bold"
             android:gravity="center"
-            android:paddingBottom="16dp"/>
+            android:paddingBottom="16dp"
+            android:text="Si quieres llegar a tus objetivos de manera controlada, debes alinear tu alimentación, entrenamiento y descanso."
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <!-- OBJETIVO -->
         <TextView
@@ -39,19 +29,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Objetivo:"
-            android:textColor="#111827"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="19sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <!-- CALORÍAS -->
         <TextView
             android:id="@+id/txtCalorias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
             android:text="Calorías:"
-            android:textColor="#6C63FF"
-            android:textSize="16sp"
-            android:paddingBottom="16dp"/>
+            android:textColor="?attr/colorPrimary"
+            android:textSize="16sp" />
+
+        <!-- MENSAJE DE SELECCIÓN DIARIA -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="14dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/nutrition_seleccionar"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/options" />
 
         <!-- DESAYUNO -->
         <LinearLayout
@@ -63,32 +66,124 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Desayuno"
-                android:textColor="#111827"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="🍳 Desayuno"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="19sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btnDesayuno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorPrimary"
                 android:text="Completar"
-                android:backgroundTint="#6C63FF"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtDesayuno"
+        <LinearLayout
+            android:id="@+id/layoutDesayuno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1F2937"
-            android:textSize="14sp"
-            android:lineSpacingExtra="5dp"
-            android:background="@drawable/options"
-            android:padding="12dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="12dp"/>
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtDesayuno1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtDesayuno2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtDesayuno3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtDesayuno4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtDesayuno5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
         <!-- ALMUERZO -->
         <LinearLayout
@@ -100,32 +195,124 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Almuerzo"
-                android:textColor="#111827"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="🥗 Almuerzo"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="19sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btnAlmuerzo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorPrimary"
                 android:text="Completar"
-                android:backgroundTint="#6C63FF"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtAlmuerzo"
+        <LinearLayout
+            android:id="@+id/layoutAlmuerzo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1F2937"
-            android:textSize="14sp"
-            android:lineSpacingExtra="5dp"
-            android:background="@drawable/options"
-            android:padding="12dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="12dp"/>
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtAlmuerzo1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtAlmuerzo2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtAlmuerzo3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtAlmuerzo4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtAlmuerzo5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
         <!-- CENA -->
         <LinearLayout
@@ -137,46 +324,152 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Cena"
-                android:textColor="#111827"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="🌙 Cena"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="19sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btnCena"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorPrimary"
                 android:text="Completar"
-                android:backgroundTint="#6C63FF"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtCena"
+        <LinearLayout
+            android:id="@+id/layoutCena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1F2937"
-            android:textSize="14sp"
-            android:lineSpacingExtra="5dp"
-            android:background="@drawable/options"
-            android:padding="12dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="12dp"/>
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtCena1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtCena2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtCena3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtCena4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:contentPadding="14dp">
+
+                <TextView
+                    android:id="@+id/txtCena5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
         <!-- PROGRESO -->
         <TextView
             android:id="@+id/txtProgreso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/green_800"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_marginTop="8dp"
             android:text="Progreso del día: 0%"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:padding="16dp"
+            android:textStyle="bold" />
+
+        <!-- BOTÓN VOLVER ABAJO -->
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="#22C55E"/>
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="?attr/colorSurface"
+            android:elevation="0dp"
+            android:text="Volver al lobby"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorPrimary" />
 
     </LinearLayout>
 </ScrollView>

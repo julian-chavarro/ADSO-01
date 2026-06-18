@@ -74,6 +74,26 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- ===== STREAK + FRASE MOTIVACIONAL ===== -->
+            <TextView
+                android:id="@+id/tvStreak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hoy es un gran día para empezar 💪"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorTertiary"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvFraseMotivacional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="La consistencia supera siempre a la intensidad puntual."
+                android:textSize="13sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:layout_marginBottom="14dp" />
+
             <!-- ===== CARD: OBJETIVO PRINCIPAL (mismo estilo que Nutrición/Chat) ===== -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardObjetivoPrincipal"
@@ -162,7 +182,9 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- ===== CARD: NUTRICIÓN ===== -->
+
+
+            <!-- ===== CARD: NUTRICIÓN (sin barra de progreso) ===== -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardNutricionPrincipal"
                 android:layout_width="match_parent"
@@ -187,52 +209,33 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="8dp">
+                        android:layout_marginBottom="10dp">
 
                         <ImageView
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/ic_nutrition"
                             android:background="@drawable/bg_icon_green"
-                            android:padding="7dp"/>
+                            android:padding="7dp"
+                            android:contentDescription="Nutrición"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/lobby_nutrition_title"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="?attr/colorOnSurface"
-                            android:layout_marginStart="10dp"/>
+                            android:layout_marginStart="12dp"/>
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/lobby_nutrition_desc"
-                        android:textSize="13sp"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:layout_marginBottom="14dp"/>
-
-                    <ProgressBar
-                        android:id="@+id/progressNutricion"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:progress="0"
-                        android:max="100"
-                        android:progressTint="@color/green_800"
-                        android:layout_marginBottom="8dp"/>
-
-                    <TextView
-                        android:id="@+id/tvNutricionProgreso"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0% completado"
+                        android:text="@string/lobby_nutrition_important"
                         android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/green_800"/>
-
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:lineSpacingExtra="3dp"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -259,16 +262,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:layout_margin="4dp"
-                    app:cardCornerRadius="12dp"
+                    android:layout_margin="6dp"
+                    app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:strokeWidth="1dp"
                     app:strokeColor="?attr/colorOutlineVariant">
-                    <LinearLayout android:orientation="horizontal" android:padding="14dp" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <ImageView android:layout_width="36dp" android:layout_height="36dp" android:src="@drawable/ic_chat" android:background="@drawable/bg_icon_amber" android:padding="7dp"/>
-                        <LinearLayout android:orientation="vertical" android:layout_marginStart="10dp" android:layout_width="match_parent" android:layout_height="wrap_content">
-                            <TextView android:text="ChatFit" android:textSize="14sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurface"/>
-                            <TextView android:text="Asistente" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurfaceVariant"/>
+                    <LinearLayout android:orientation="horizontal" android:padding="20dp" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_chat" android:background="@drawable/bg_icon_amber" android:padding="10dp"/>
+                        <LinearLayout android:orientation="vertical" android:layout_marginStart="12dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+                            <TextView android:text="ChatFit" android:textSize="16sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurface"/>
+                            <TextView android:text="Asistente" android:textSize="13sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurfaceVariant"/>
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -279,16 +282,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:layout_margin="4dp"
-                    app:cardCornerRadius="12dp"
+                    android:layout_margin="6dp"
+                    app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:strokeWidth="1dp"
                     app:strokeColor="?attr/colorOutlineVariant">
-                    <LinearLayout android:orientation="horizontal" android:padding="14dp" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <ImageView android:layout_width="36dp" android:layout_height="36dp" android:src="@drawable/ic_chart" android:background="@drawable/bg_icon_purple" android:padding="7dp"/>
-                        <LinearLayout android:orientation="vertical" android:layout_marginStart="10dp" android:layout_width="match_parent" android:layout_height="wrap_content">
-                            <TextView android:text="Progreso" android:textSize="14sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurface"/>
-                            <TextView android:id="@+id/tvProgresoSub" android:text="Ver marcas" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurfaceVariant"/>
+                    <LinearLayout android:orientation="horizontal" android:padding="20dp" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_chart" android:background="@drawable/bg_icon_purple" android:padding="10dp"/>
+                        <LinearLayout android:orientation="vertical" android:layout_marginStart="12dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+                            <TextView android:text="Progreso" android:textSize="16sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurface"/>
+                            <TextView android:id="@+id/tvProgresoSub" android:text="Ver marcas" android:textSize="13sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnSurfaceVariant"/>
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -312,29 +315,6 @@
                     android:orientation="vertical"
                     android:padding="12dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_bolt"
-                            android:layout_marginEnd="10dp"
-                            android:contentDescription="Motivación"/>
-
-                        <TextView
-                            android:id="@+id/tvMotivacion"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="La consistencia supera siempre a la intensidad puntual. ¡Sigue así!"
-                            android:textSize="12sp"
-                            android:textColor="@color/green_800"/>
-                    </LinearLayout>
-
                     <TextView
                         android:id="@+id/tvMotivacionExtra"
                         android:layout_width="match_parent"
@@ -342,8 +322,7 @@
                         android:text="@string/lobby_motivation_extra"
                         android:textSize="12sp"
                         android:textColor="@color/green_800"
-                        android:layout_marginTop="8dp"
-                        android:paddingStart="30dp"/>
+                        android:padding="12dp"/>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

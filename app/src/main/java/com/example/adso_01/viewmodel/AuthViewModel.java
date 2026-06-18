@@ -1,12 +1,12 @@
 package com.example.adso_01.viewmodel;
 
 import android.app.Application;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.adso_01.R;
 import com.example.adso_01.repository.AuthRepository;
@@ -14,36 +14,66 @@ import com.example.adso_01.repository.FirebaseAuthErrorMapper;
 import com.example.adso_01.ui.common.Event;
 import com.example.adso_01.util.Resource;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
 /**
- * ViewModel para la gestión de autenticación.
+ * ViewModel para la gestión de autenticación de usuarios.
+ * <p>
+ * Maneja las operaciones de inicio de sesión, registro y restablecimiento
+ * de contraseña, exponiendo estados observables ({@link Resource}) para que
+ * la UI reaccione a los cambios. Cada operación tiene su propio LiveData
+ * de estado y un evento de éxito de un solo consumo para evitar repeticiones
+ * al rotar la pantalla.
  * Sigue el patrón MVVM y las directrices de AGENTS.md.
+ * </p>
  */
-public class AuthViewModel extends AndroidViewModel {
+@HiltViewModel
+public class AuthViewModel extends ViewModel {
 
     private final AuthRepository repository;
+    private final Application application;
+
+    // ─── Login ───────────────────────────────────────────────────────────
 
     private final MutableLiveData<Resource<Void>> loginState =
             new MutableLiveData<>(Resource.idle());
+
     private final MutableLiveData<Event<Boolean>> loginSuccess = new MutableLiveData<>();
+
+    // ─── Register ────────────────────────────────────────────────────────
 
     private final MutableLiveData<Resource<Void>> registerState =
             new MutableLiveData<>(Resource.idle());
+
     private final MutableLiveData<Event<Boolean>> registerSuccess = new MutableLiveData<>();
+
+    // ─── Reset Password ──────────────────────────────────────────────────
 
     private final MutableLiveData<Resource<Void>> resetPasswordState =
             new MutableLiveData<>(Resource.idle());
+
     private final MutableLiveData<Event<Boolean>> resetPasswordSuccess = new MutableLiveData<>();
 
-    public AuthViewModel(@NonNull Application application) {
-        super(application);
-        repository = new AuthRepository();
+    @Inject
+    public AuthViewModel(AuthRepository repository, Application application) {
+        this.repository = repository;
+        this.application = application;
     }
 
+    // ─── Exposición de LiveData ───────────────────────────────────────────
+
     public LiveData<Resource<Void>> getLoginState() { return loginState; }
+
     public LiveData<Event<Boolean>> getLoginSuccess() { return loginSuccess; }
+
     public LiveData<Resource<Void>> getRegisterState() { return registerState; }
+
     public LiveData<Event<Boolean>> getRegisterSuccess() { return registerSuccess; }
+
     public LiveData<Resource<Void>> getResetPasswordState() { return resetPasswordState; }
+
     public LiveData<Event<Boolean>> getResetPasswordSuccess() { return resetPasswordSuccess; }
 
     public void login(String email, String password) {
@@ -57,7 +87,7 @@ public class AuthViewModel extends AndroidViewModel {
                 loginState.postValue(Resource.success(null));
                 loginSuccess.postValue(new Event<>(true));
             } else {
-                loginState.postValue(Resource.error(FirebaseAuthErrorMapper.toMessage(getApplication(), error)));
+                loginState.postValue(Resource.error(FirebaseAuthErrorMapper.toMessage(application, error)));
             }
         });
     }
@@ -77,7 +107,7 @@ public class AuthViewModel extends AndroidViewModel {
                 registerState.postValue(Resource.success(null));
                 registerSuccess.postValue(new Event<>(true));
             } else {
-                registerState.postValue(Resource.error(FirebaseAuthErrorMapper.toMessage(getApplication(), error)));
+                registerState.postValue(Resource.error(FirebaseAuthErrorMapper.toMessage(application, error)));
             }
         });
     }
@@ -93,13 +123,15 @@ public class AuthViewModel extends AndroidViewModel {
                 resetPasswordState.postValue(Resource.success(null));
                 resetPasswordSuccess.postValue(new Event<>(true));
             } else {
-                resetPasswordState.postValue(Resource.error(FirebaseAuthErrorMapper.toMessage(getApplication(), error)));
+                resetPasswordState.postValue(Resource.error(FirebaseAuthErrorMapper.toMessage(application, error)));
             }
         });
     }
 
     public void clearLoginState() { loginState.setValue(Resource.idle()); }
+
     public void clearRegisterState() { registerState.setValue(Resource.idle()); }
+
     public void clearResetPasswordState() { resetPasswordState.setValue(Resource.idle()); }
 
     private boolean isAnyBlank(String... values) {
@@ -110,6 +142,6 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
     private String getString(@StringRes int resId) {
-        return getApplication().getString(resId);
+        return application.getString(resId);
     }
 }

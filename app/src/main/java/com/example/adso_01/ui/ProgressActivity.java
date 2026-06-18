@@ -18,14 +18,35 @@ import com.example.adso_01.model.ResumenSesion;
 import com.example.adso_01.util.Resource;
 import com.example.adso_01.viewmodel.ProgressViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Actividad que muestra el historial de progreso del usuario.
+ * <p>
+ * Presenta dos secciones en RecyclerViews separados:
+ * <ol>
+ *   <li><b>Sesiones:</b> lista de resúmenes de entrenamientos completados,
+ *       mostrada mediante {@link SesionAdapter}.</li>
+ *   <li><b>Progreso por ejercicio:</b> datos agregados de cada ejercicio
+ *       (peso máximo, volumen total, repeticiones totales, series),
+ *       mostrados mediante {@link ProgresoEjercicioAdapter}.</li>
+ * </ol>
+ * Los datos se agrupan por nombre de ejercicio usando {@link #agregarProgreso(List)}
+ * para evitar duplicados y consolidar métricas.
+ * </p>
+ */
+@AndroidEntryPoint
 public class ProgressActivity extends AppCompatActivity {
 
+    /** ViewModel que gestiona la carga de datos desde Firestore. */
     private ProgressViewModel viewModel;
+
+    // ─── Vistas ──────────────────────────────────────────────────────────
 
     private RecyclerView rvSesiones;
     private RecyclerView rvProgresoEjercicios;
@@ -44,12 +65,15 @@ public class ProgressActivity extends AppCompatActivity {
         initViews();
         setupViewModels();
 
+        // Botón para volver al Lobby
         Button btnBack = findViewById(R.id.btnBackProgress);
         btnBack.setOnClickListener(v -> finish());
 
+        // Configurar LayoutManagers para ambos RecyclerViews
         rvSesiones.setLayoutManager(new LinearLayoutManager(this));
         rvProgresoEjercicios.setLayoutManager(new LinearLayoutManager(this));
 
+        // Inicializar adaptadores con listas vacías
         sesionAdapter = new SesionAdapter(new ArrayList<>());
         rvSesiones.setAdapter(sesionAdapter);
 
@@ -59,6 +83,7 @@ public class ProgressActivity extends AppCompatActivity {
         cargarDatos();
     }
 
+    /** Vincula todas las vistas del layout. */
     private void initViews() {
         rvSesiones = findViewById(R.id.rvSesiones);
         rvProgresoEjercicios = findViewById(R.id.rvProgresoEjercicios);
@@ -67,9 +92,11 @@ public class ProgressActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
     }
 
+    /** Configura el ViewModel y observa los estados de carga. */
     private void setupViewModels() {
         viewModel = new ViewModelProvider(this).get(ProgressViewModel.class);
 
+        // Observar el estado de las sesiones cargadas
         viewModel.getSesionesState().observe(this, resource -> {
             if (resource == null) return;
 
@@ -96,6 +123,7 @@ public class ProgressActivity extends AppCompatActivity {
             }
         });
 
+        // Observar el estado del progreso de ejercicios cargado
         viewModel.getProgresoState().observe(this, resource -> {
             if (resource == null) return;
 
@@ -108,6 +136,7 @@ public class ProgressActivity extends AppCompatActivity {
 
             if (resource.isSuccess()) {
                 List<ProgresoEjercicio> rawList = resource.getData();
+                // Agregar datos: agrupar por nombre de ejercicio
                 List<ProgresoEjercicio> aggregated = agregarProgreso(rawList);
 
                 if (aggregated != null && !aggregated.isEmpty()) {
@@ -125,11 +154,28 @@ public class ProgressActivity extends AppCompatActivity {
         });
     }
 
+    /** Dispara la carga de sesiones y progreso desde Firestore. */
     private void cargarDatos() {
         viewModel.cargarSesiones();
         viewModel.cargarProgresoEjercicios();
     }
 
+    /**
+     * Agrupa y agrega registros de progreso por nombre de ejercicio.
+     * <p>
+     * Para cada ejercicio, consolida:
+     * <ul>
+     *   <li><b>Peso máximo:</b> el valor más alto registrado.</li>
+     *   <li><b>Volumen total:</b> suma de todos los volúmenes.</li>
+     *   <li><b>Repeticiones totales:</b> suma de todas las repeticiones.</li>
+     *   <li><b>Series completadas:</b> suma de todas las series.</li>
+     * </ul>
+     * Esto evita duplicados cuando un mismo ejercicio aparece en múltiples sesiones.
+     * </p>
+     *
+     * @param rawList Lista plana de registros de progreso desde Firestore.
+     * @return Lista agregada con un único registro por ejercicio.
+     */
     private List<ProgresoEjercicio> agregarProgreso(List<ProgresoEjercicio> rawList) {
         if (rawList == null || rawList.isEmpty()) return new ArrayList<>();
 
@@ -140,8 +186,10 @@ public class ProgressActivity extends AppCompatActivity {
             ProgresoEjercicio existing = grouped.get(key);
 
             if (existing == null) {
+                // Primera ocurrencia: usar el registro tal cual
                 grouped.put(key, p);
             } else {
+                // Ocurrencias siguientes: agregar métricas
                 if (p.getPesoMaximo() > existing.getPesoMaximo()) {
                     existing.setPesoMaximo(p.getPesoMaximo());
                 }

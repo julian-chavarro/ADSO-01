@@ -12,21 +12,39 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 /**
- * Mapea errores técnicos de Firebase Auth a mensajes amigables para el usuario.
+ * Traduce errores técnicos de Firebase Authentication a mensajes
+ * legibles y amigables para el usuario final.
+ * <p>
+ * Cada código de error de Firebase Auth se asigna a un string resource
+ * definido en strings.xml, permitiendo la internacionalización y
+ * evitando que el usuario vea mensajes técnicos crípticos.
  * Sigue el principio de separación de capas de AGENTS.md.
+ * </p>
  */
 public class FirebaseAuthErrorMapper {
 
+    /**
+     * Convierte una excepción de Firebase Auth en un mensaje para el usuario.
+     * <p>
+     * Detecta el tipo específico de excepción y retorna el mensaje
+     * correspondiente. Si no reconoce el error, retorna un mensaje genérico.
+     * </p>
+     *
+     * @param context Contexto de la aplicación para acceder a recursos.
+     * @param e       Excepción de Firebase Auth, o null.
+     * @return Mensaje de error legible para el usuario.
+     */
     public static String toMessage(@NonNull Context context, @Nullable Exception e) {
         if (e == null) return context.getString(R.string.error_auth_generic);
 
+        // Error de red: sin conexión a Internet
         if (e instanceof FirebaseNetworkException) {
             return context.getString(R.string.error_network);
         }
 
         if (e instanceof FirebaseAuthException) {
             String errorCode = ((FirebaseAuthException) e).getErrorCode();
-            
+
             switch (errorCode) {
                 case "ERROR_INVALID_EMAIL":
                     return context.getString(R.string.error_invalid_email);

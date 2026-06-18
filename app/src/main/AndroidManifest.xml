@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        android:name=".AdsoApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -37,11 +38,15 @@
 
         <!-- Módulo de Entrenamiento (Workout) -->
         <activity android:name=".ui.RoutineSelectionActivity" />
+        <activity android:name=".ui.WarmupActivity" />
         <activity android:name=".ui.ExerciseActiveActivity" />
 
         <!-- Otros Módulos -->
         <activity android:name=".ui.ChatActivity" />
         <activity android:name=".ui.ProgressActivity" />
+
+        <!-- Resumen post-entreno -->
+        <activity android:name=".ui.WorkoutSummaryActivity" />
 
     </application>
 

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#F9F9F7">
+    android:background="?attr/colorSurface">
 
     <!-- Encabezado con Botón Atrás -->
     <RelativeLayout
@@ -19,7 +19,7 @@
             android:text="← Lista"
             android:textAllCaps="false"
             android:backgroundTint="@android:color/white"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/colorOnSurface"
             style="?android:attr/borderlessButtonStyle" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:text="Día · Pecho"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#3F51B5" />
+            android:textColor="?attr/colorPrimary" />
 
         <TextView
             android:id="@+id/exerciseCount"
@@ -39,7 +39,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:text="Ejercicio 1 de 5"
-            android:textColor="#666666" />
+            android:textColor="?attr/colorOnSurfaceVariant" />
     </RelativeLayout>
 
     <ProgressBar
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:progress="40"
-        android:progressTint="#3F51B5"
+        android:progressTint="?attr/colorPrimary"
         android:layout_marginBottom="16dp"/>
 
     <!-- Información del Ejercicio -->
@@ -59,7 +59,7 @@
         android:text="Press de banca"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black" />
+        android:textColor="?attr/colorOnSurface" />
 
     <TextView
         android:id="@+id/muscles"
@@ -67,18 +67,20 @@
         android:layout_height="wrap_content"
         android:text="Pectoral, Tríceps, Deltoides anterior"
         android:textSize="14sp"
-        android:textColor="#666666"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:layout_marginBottom="8dp" />
 
     <Button
         android:id="@+id/videoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:text="▶ Video de técnica"
         android:textAllCaps="false"
-        android:backgroundTint="@android:color/white"
-        android:textColor="#666666"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:gravity="center"
+        android:layout_marginVertical="8dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"/>
 
     <!-- Cabecera de Tabla -->
     <LinearLayout
@@ -87,10 +89,10 @@
         android:orientation="horizontal"
         android:paddingHorizontal="8dp"
         android:layout_marginTop="12dp">
-        <TextView android:layout_width="30dp" android:layout_height="wrap_content" android:text="#" android:textStyle="bold" android:gravity="center"/>
-        <TextView android:layout_width="50dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Reps" android:textStyle="bold" android:gravity="center"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Peso (kg)" android:textStyle="bold" android:gravity="center"/>
-        <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Estado" android:textStyle="bold" android:gravity="center"/>
+        <TextView android:layout_width="30dp" android:layout_height="wrap_content" android:text="#" android:textStyle="bold" android:gravity="center" android:textColor="?attr/colorOnSurfaceVariant"/>
+        <TextView android:layout_width="50dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Reps" android:textStyle="bold" android:gravity="center" android:textColor="?attr/colorOnSurfaceVariant"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Peso (kg)" android:textStyle="bold" android:gravity="center" android:textColor="?attr/colorOnSurfaceVariant"/>
+        <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Estado" android:textStyle="bold" android:gravity="center" android:textColor="?attr/colorOnSurfaceVariant"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -107,7 +109,7 @@
         android:text="@string/exercise_completed_indicator"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="#4CAF50"
+        android:textColor="@color/green_800"
         android:gravity="center"
         android:padding="8dp"
         android:visibility="gone" />
@@ -126,10 +128,9 @@
             android:layout_weight="1"
             android:text="@string/exercise_previous"
             android:textAllCaps="false"
-            android:backgroundTint="@android:color/white"
-            android:textColor="@android:color/black"
-            android:layout_marginEnd="4dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/btnNextExercise"
@@ -139,7 +140,7 @@
             android:text="@string/exercise_next"
             android:textAllCaps="false"
             android:layout_marginStart="4dp"
-            android:backgroundTint="#3F51B5"
+            android:backgroundTint="?attr/colorPrimary"
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
     </LinearLayout>

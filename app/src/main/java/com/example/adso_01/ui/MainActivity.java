@@ -1,14 +1,25 @@
 package com.example.adso_01.ui;
 
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.adso_01.R;
+import com.example.adso_01.util.Navigator;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+/**
+ * Actividad de inicio (Splash / Landing) de la aplicación.
+ * <p>
+ * Es la primera pantalla que ve el usuario al abrir la app.
+ * Contiene un botón principal que redirige a la pantalla de
+ * inicio de sesión ({@link LoginActivity}). Actúa como punto
+ * de entrada antes de la autenticación.
+ * </p>
+ */
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -16,18 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Botón principal que navega a la pantalla de Login
         Button btnStart = findViewById(R.id.btnstart);
-
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Conectar con LoginActivity
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-
-            }
-        });
+        btnStart.setOnClickListener(v -> Navigator.toLogin(this));
     }
 }
-

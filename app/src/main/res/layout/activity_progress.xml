@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F9F9F7">
+    android:background="?attr/colorSurface">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:text="@string/progress_title"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black" />
+            android:textColor="?attr/colorOnSurface" />
 
         <Button
             android:id="@+id/btnBackProgress"
@@ -27,7 +27,7 @@
             android:text="Volver"
             android:textAllCaps="false"
             android:backgroundTint="@android:color/white"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/colorOnSurface"
             style="?android:attr/borderlessButtonStyle" />
     </RelativeLayout>
 
@@ -50,7 +50,7 @@
                 android:text="@string/progress_sessions_title"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black" />
+                android:textColor="?attr/colorOnSurface" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSesiones"
@@ -66,14 +66,14 @@
                 android:padding="32dp"
                 android:text="@string/progress_empty_sessions"
                 android:textSize="14sp"
-                android:textColor="#999999"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:visibility="gone" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_margin="16dp"
-                android:background="#E0E0E0" />
+                android:background="?attr/colorOutlineVariant" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                 android:text="@string/progress_evolution_title"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black" />
+                android:textColor="?attr/colorOnSurface" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvProgresoEjercicios"
@@ -99,7 +99,7 @@
                 android:padding="32dp"
                 android:text="@string/progress_empty_evolution"
                 android:textSize="14sp"
-                android:textColor="#999999"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:visibility="gone" />
 
             <ProgressBar

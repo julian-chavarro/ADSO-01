@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F7F7">
+    android:background="?attr/colorSurface">
 
     <LinearLayout
         android:orientation="vertical"
@@ -9,19 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/btnVolver"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@android:drawable/ic_media_previous"
-            android:background="#5E35B1"
-            android:tint="#FFFFFF"
-            android:padding="8dp"/>
+         <TextView
+        android:text="Calculadora de calorías"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:textColor="?attr/colorOnSurface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
         <TextView
             android:text="Edad"
             android:textStyle="bold"
             android:layout_marginTop="15dp"
+            android:textColor="?attr/colorOnSurface"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -34,6 +35,7 @@
             android:text="Peso (kg)"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
+            android:textColor="?attr/colorOnSurface"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -46,6 +48,7 @@
             android:text="Estatura (cm)"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
+            android:textColor="?attr/colorOnSurface"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -58,6 +61,7 @@
             android:text="Sexo"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
+            android:textColor="?attr/colorOnSurface"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -70,6 +74,7 @@
             android:text="Actividad física"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
+            android:textColor="?attr/colorOnSurface"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -82,6 +87,7 @@
             android:text="Objetivo"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
+            android:textColor="?attr/colorOnSurface"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -94,7 +100,7 @@
             android:id="@+id/btnCalcular"
             android:text="Calcular calorías"
             android:textColor="#FFFFFF"
-            android:background="#7E57C2"
+            android:background="?attr/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"/>
@@ -103,6 +109,7 @@
             android:text="Calorías recomendadas"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginTop="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -112,13 +119,26 @@
             android:text="---"
             android:textSize="32sp"
             android:textStyle="bold"
-            android:textColor="#0D47A1"
-            android:background="#BBDEFB"
+            android:textColor="?attr/colorPrimary"
+            android:background="?attr/colorPrimaryContainer"
             android:padding="25dp"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volver al lobby"
+            android:textAllCaps="false"
+            android:backgroundTint="?attr/colorSurface"
+            android:textColor="?attr/colorPrimary"
+            android:elevation="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
